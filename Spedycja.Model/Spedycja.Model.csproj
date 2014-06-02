@@ -89,10 +89,10 @@
     <Compile Include="EntityModels\StatusHistory.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModels\StatusHistory1.cs">
+    <Compile Include="EntityModels\StatusOrder.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModels\StatusOrder.cs">
+    <Compile Include="EntityModels\sysdiagram.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModels\TypesFreight.cs">
@@ -136,7 +136,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="EntityModels\Spedycja.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Spedycja.edmx</DependentUpon>

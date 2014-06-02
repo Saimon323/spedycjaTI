@@ -18,7 +18,6 @@ namespace Spedycja.Model.EntityModels
         {
             this.Orders = new HashSet<Order>();
             this.StatusHistories = new HashSet<StatusHistory>();
-            this.StatusHistories1 = new HashSet<StatusHistory1>();
         }
     
         public int id { get; set; }
@@ -29,6 +28,5 @@ namespace Spedycja.Model.EntityModels
     
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<StatusHistory> StatusHistories { get; set; }
-        public virtual ICollection<StatusHistory1> StatusHistories1 { get; set; }
     }
 }

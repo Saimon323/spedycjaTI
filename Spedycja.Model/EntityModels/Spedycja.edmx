@@ -100,6 +100,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TypesFreights">
           <Key>
             <PropertyRef Name="id" />
@@ -294,6 +304,7 @@
           <EntitySet Name="Routes" EntityType="Self.Routes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusHistories" EntityType="Self.StatusHistories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusOrders" EntityType="Self.StatusOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesFreights" EntityType="Self.TypesFreights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesVehicles" EntityType="Self.TypesVehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
@@ -354,39 +365,117 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SpedycjaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SpedycjaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AreaActivities" EntityType="SpedycjaModel.AreaActivity" />
+          <EntitySet Name="Comments" EntityType="SpedycjaModel.Comment" />
+          <EntitySet Name="Customers" EntityType="SpedycjaModel.Customer" />
+          <EntitySet Name="Drivers" EntityType="SpedycjaModel.Driver" />
+          <EntitySet Name="Loads" EntityType="SpedycjaModel.Load" />
+          <EntitySet Name="Orders" EntityType="SpedycjaModel.Order" />
+          <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
+          <EntitySet Name="StatusHistories" EntityType="SpedycjaModel.StatusHistory" />
+          <EntitySet Name="StatusOrders" EntityType="SpedycjaModel.StatusOrder" />
+          <EntitySet Name="sysdiagrams" EntityType="SpedycjaModel.sysdiagram" />
+          <EntitySet Name="TypesFreights" EntityType="SpedycjaModel.TypesFreight" />
+          <EntitySet Name="TypesVehicles" EntityType="SpedycjaModel.TypesVehicle" />
+          <EntitySet Name="Workers" EntityType="SpedycjaModel.Worker" />
+          <AssociationSet Name="FK_Kierowcy_ObszarDzialan" Association="SpedycjaModel.FK_Kierowcy_ObszarDzialan">
+            <End Role="AreaActivity" EntitySet="AreaActivities" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Orders" Association="SpedycjaModel.FK_Comments_Orders">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Klienci" Association="SpedycjaModel.FK_Zlecenia_Klienci">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Kierowcy" Association="SpedycjaModel.FK_Zlecenia_Kierowcy">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ladunki_Typ_Ladunek" Association="SpedycjaModel.FK_Ladunki_Typ_Ladunek">
+            <End Role="TypesFreight" EntitySet="TypesFreights" />
+            <End Role="Load" EntitySet="Loads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Ladunki" Association="SpedycjaModel.FK_Zlecenia_Ladunki">
+            <End Role="Load" EntitySet="Loads" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusHistory_Orders" Association="SpedycjaModel.FK_StatusHistory_Orders">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="StatusHistory" EntitySet="StatusHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Pracownicy" Association="SpedycjaModel.FK_Zlecenia_Pracownicy">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Status_Zlecenie" Association="SpedycjaModel.FK_Zlecenia_Status_Zlecenie">
+            <End Role="StatusOrder" EntitySet="StatusOrders" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Typ_Pojazd" Association="SpedycjaModel.FK_Zlecenia_Typ_Pojazd">
+            <End Role="TypesVehicle" EntitySet="TypesVehicles" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusHistory_StatusOrders" Association="SpedycjaModel.FK_StatusHistory_StatusOrders">
+            <End Role="StatusOrder" EntitySet="StatusOrders" />
+            <End Role="StatusHistory" EntitySet="StatusHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusHistory_Workers" Association="SpedycjaModel.FK_StatusHistory_Workers">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="StatusHistory" EntitySet="StatusHistories" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AreaActivity">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Drivers" Relationship="Self.FK_Kierowcy_ObszarDzialan" FromRole="AreaActivities" ToRole="Drivers" />
+          <Property Name="AreaName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Drivers" Relationship="SpedycjaModel.FK_Kierowcy_ObszarDzialan" FromRole="AreaActivity" ToRole="Driver" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idWorker" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_Comments_Orders" FromRole="Comment" ToRole="Order" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Firm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Klienci" FromRole="Customers" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Klienci" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="Driver">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Firm" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="IdAreasActivity" Type="Int32" />
-          <NavigationProperty Name="AreaActivity" Relationship="Self.FK_Kierowcy_ObszarDzialan" FromRole="Drivers" ToRole="AreaActivities" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Kierowcy" FromRole="Drivers" ToRole="Orders" />
+          <NavigationProperty Name="AreaActivity" Relationship="SpedycjaModel.FK_Kierowcy_ObszarDzialan" FromRole="Driver" ToRole="AreaActivity" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Kierowcy" FromRole="Driver" ToRole="Order" />
         </EntityType>
         <EntityType Name="Load">
           <Key>
@@ -397,8 +486,8 @@
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Weight" Type="Int32" />
           <Property Name="IdType" Type="Int32" />
-          <NavigationProperty Name="TypesFreight" Relationship="Self.FK_Ladunki_Typ_Ladunek" FromRole="Loads" ToRole="TypesFreights" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Ladunki" FromRole="Loads" ToRole="Orders" />
+          <NavigationProperty Name="TypesFreight" Relationship="SpedycjaModel.FK_Ladunki_Typ_Ladunek" FromRole="Load" ToRole="TypesFreight" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Ladunki" FromRole="Load" ToRole="Order" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -411,218 +500,32 @@
           <Property Name="idTypeVehicles" Type="Int32" />
           <Property Name="idCustomer" Type="Int32" />
           <Property Name="idDriver" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Zlecenia_Klienci" FromRole="Orders" ToRole="Customers" />
-          <NavigationProperty Name="Driver" Relationship="Self.FK_Zlecenia_Kierowcy" FromRole="Orders" ToRole="Drivers" />
-          <NavigationProperty Name="Load" Relationship="Self.FK_Zlecenia_Ladunki" FromRole="Orders" ToRole="Loads" />
-          <NavigationProperty Name="StatusOrder" Relationship="Self.FK_Zlecenia_Status_Zlecenie" FromRole="Orders" ToRole="StatusOrders" />
-          <NavigationProperty Name="TypesVehicle" Relationship="Self.FK_Zlecenia_Typ_Pojazd" FromRole="Orders" ToRole="TypesVehicles" />
           <Property Name="idRoutes" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Comments" Relationship="SpedycjaModel.FK_Comments_Orders" FromRole="Order" ToRole="Comment" />
+          <NavigationProperty Name="Customer" Relationship="SpedycjaModel.FK_Zlecenia_Klienci" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Driver" Relationship="SpedycjaModel.FK_Zlecenia_Kierowcy" FromRole="Order" ToRole="Driver" />
+          <NavigationProperty Name="Load" Relationship="SpedycjaModel.FK_Zlecenia_Ladunki" FromRole="Order" ToRole="Load" />
+          <NavigationProperty Name="Route" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Order" ToRole="Route" />
           <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="Order" ToRole="StatusHistory" />
           <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_Zlecenia_Pracownicy" FromRole="Order" ToRole="Worker" />
-          <NavigationProperty Name="Route" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Order" ToRole="Route" />
-          <NavigationProperty Name="StatusHistories1" Relationship="SpedycjaModel.FK_StatusHistory_Orders1" FromRole="Order" ToRole="StatusHistory1" />
+          <NavigationProperty Name="StatusOrder" Relationship="SpedycjaModel.FK_Zlecenia_Status_Zlecenie" FromRole="Order" ToRole="StatusOrder" />
+          <NavigationProperty Name="TypesVehicle" Relationship="SpedycjaModel.FK_Zlecenia_Typ_Pojazd" FromRole="Order" ToRole="TypesVehicle" />
         </EntityType>
-        <EntityType Name="StatusOrder">
+        <EntityType Name="Route">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Status_Zlecenie" FromRole="StatusOrders" ToRole="Orders" />
-          <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders" FromRole="StatusOrder" ToRole="StatusHistory" />
-          <NavigationProperty Name="StatusHistories1" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders1" FromRole="StatusOrder" ToRole="StatusHistory1" />
-        </EntityType>
-        <EntityType Name="TypesFreight">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Loads" Relationship="Self.FK_Ladunki_Typ_Ladunek" FromRole="TypesFreights" ToRole="Loads" />
-        </EntityType>
-        <EntityType Name="TypesVehicle">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Typ_Pojazd" FromRole="TypesVehicles" ToRole="Orders" />
-        </EntityType>
-        <Association Name="FK_Kierowcy_ObszarDzialan">
-          <End Role="AreaActivities" Type="Self.AreaActivity" Multiplicity="0..1" />
-          <End Role="Drivers" Type="Self.Driver" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AreaActivities">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Drivers">
-              <PropertyRef Name="IdAreasActivity" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Zlecenia_Klienci">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="idCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Zlecenia_Kierowcy">
-          <End Role="Drivers" Type="Self.Driver" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Drivers">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="idDriver" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ladunki_Typ_Ladunek">
-          <End Role="TypesFreights" Type="Self.TypesFreight" Multiplicity="0..1" />
-          <End Role="Loads" Type="Self.Load" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypesFreights">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Loads">
-              <PropertyRef Name="IdType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Zlecenia_Ladunki">
-          <End Role="Loads" Type="Self.Load" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Loads">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="idLoad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Zlecenia_Status_Zlecenie">
-          <End Role="StatusOrders" Type="Self.StatusOrder" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusOrders">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="idStatus" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Zlecenia_Typ_Pojazd">
-          <End Role="TypesVehicles" Type="Self.TypesVehicle" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypesVehicles">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="idTypeVehicles" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="SpedycjaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AreaActivities" EntityType="Self.AreaActivity" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Drivers" EntityType="Self.Driver" />
-          <EntitySet Name="Loads" EntityType="Self.Load" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="StatusOrders" EntityType="Self.StatusOrder" />
-          <EntitySet Name="TypesFreights" EntityType="Self.TypesFreight" />
-          <EntitySet Name="TypesVehicles" EntityType="Self.TypesVehicle" />
-          <AssociationSet Name="FK_Kierowcy_ObszarDzialan" Association="Self.FK_Kierowcy_ObszarDzialan">
-            <End Role="AreaActivities" EntitySet="AreaActivities" />
-            <End Role="Drivers" EntitySet="Drivers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zlecenia_Klienci" Association="Self.FK_Zlecenia_Klienci">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zlecenia_Kierowcy" Association="Self.FK_Zlecenia_Kierowcy">
-            <End Role="Drivers" EntitySet="Drivers" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ladunki_Typ_Ladunek" Association="Self.FK_Ladunki_Typ_Ladunek">
-            <End Role="TypesFreights" EntitySet="TypesFreights" />
-            <End Role="Loads" EntitySet="Loads" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zlecenia_Ladunki" Association="Self.FK_Zlecenia_Ladunki">
-            <End Role="Loads" EntitySet="Loads" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zlecenia_Status_Zlecenie" Association="Self.FK_Zlecenia_Status_Zlecenie">
-            <End Role="StatusOrders" EntitySet="StatusOrders" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zlecenia_Typ_Pojazd" Association="Self.FK_Zlecenia_Typ_Pojazd">
-            <End Role="TypesVehicles" EntitySet="TypesVehicles" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <EntitySet Name="Comments" EntityType="SpedycjaModel.Comment" />
-          <EntitySet Name="StatusHistories" EntityType="SpedycjaModel.StatusHistory" />
-          <AssociationSet Name="FK_Comments_Orders" Association="SpedycjaModel.FK_Comments_Orders">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Orders" Association="SpedycjaModel.FK_StatusHistory_Orders">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="StatusHistory" EntitySet="StatusHistories" />
-          </AssociationSet>
-          <EntitySet Name="Workers" EntityType="SpedycjaModel.Worker" />
-          <AssociationSet Name="FK_Zlecenia_Pracownicy" Association="SpedycjaModel.FK_Zlecenia_Pracownicy">
-            <End Role="Worker" EntitySet="Workers" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_StatusOrders" Association="SpedycjaModel.FK_StatusHistory_StatusOrders">
-            <End Role="StatusOrder" EntitySet="StatusOrders" />
-            <End Role="StatusHistory" EntitySet="StatusHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Workers" Association="SpedycjaModel.FK_StatusHistory_Workers">
-            <End Role="Worker" EntitySet="Workers" />
-            <End Role="StatusHistory" EntitySet="StatusHistories" />
-          </AssociationSet>
-          <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
-          <EntitySet Name="StatusHistory1" EntityType="SpedycjaModel.StatusHistory1" />
-          <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
-            <End Role="Route" EntitySet="Routes" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Orders1" Association="SpedycjaModel.FK_StatusHistory_Orders1">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="StatusHistory1" EntitySet="StatusHistory1" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_StatusOrders1" Association="SpedycjaModel.FK_StatusHistory_StatusOrders1">
-            <End Role="StatusOrder" EntitySet="StatusOrders" />
-            <End Role="StatusHistory1" EntitySet="StatusHistory1" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Workers1" Association="SpedycjaModel.FK_StatusHistory_Workers1">
-            <End Role="Worker" EntitySet="Workers" />
-            <End Role="StatusHistory1" EntitySet="StatusHistory1" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idWorker" Type="Int32" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idOrder" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_Comments_Orders" FromRole="Comment" ToRole="Order" />
+          <Property Name="StartCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndStreet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartCoord" Type="Geography" Nullable="false" />
+          <Property Name="EndCoord" Type="Geography" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
         </EntityType>
         <EntityType Name="StatusHistory">
           <Key>
@@ -637,30 +540,41 @@
           <NavigationProperty Name="StatusOrder" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders" FromRole="StatusHistory" ToRole="StatusOrder" />
           <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_StatusHistory_Workers" FromRole="StatusHistory" ToRole="Worker" />
         </EntityType>
-        <Association Name="FK_Comments_Orders">
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="SpedycjaModel.Comment" Role="Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_Orders">
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="SpedycjaModel.StatusHistory" Role="StatusHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="StatusOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Status_Zlecenie" FromRole="StatusOrder" ToRole="Order" />
+          <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders" FromRole="StatusOrder" ToRole="StatusHistory" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypesFreight">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Loads" Relationship="SpedycjaModel.FK_Ladunki_Typ_Ladunek" FromRole="TypesFreight" ToRole="Load" />
+        </EntityType>
+        <EntityType Name="TypesVehicle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Typ_Pojazd" FromRole="TypesVehicle" ToRole="Order" />
+        </EntityType>
         <EntityType Name="Worker">
           <Key>
             <PropertyRef Name="id" />
@@ -672,8 +586,107 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Pracownicy" FromRole="Worker" ToRole="Order" />
           <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Workers" FromRole="Worker" ToRole="StatusHistory" />
-          <NavigationProperty Name="StatusHistories1" Relationship="SpedycjaModel.FK_StatusHistory_Workers1" FromRole="Worker" ToRole="StatusHistory1" />
         </EntityType>
+        <Association Name="FK_Kierowcy_ObszarDzialan">
+          <End Type="SpedycjaModel.AreaActivity" Role="AreaActivity" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Driver" Role="Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaActivity">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="IdAreasActivity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Orders">
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SpedycjaModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zlecenia_Klienci">
+          <End Type="SpedycjaModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zlecenia_Kierowcy">
+          <End Type="SpedycjaModel.Driver" Role="Driver" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ladunki_Typ_Ladunek">
+          <End Type="SpedycjaModel.TypesFreight" Role="TypesFreight" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Load" Role="Load" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesFreight">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Load">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zlecenia_Ladunki">
+          <End Type="SpedycjaModel.Load" Role="Load" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Load">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idLoad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Routes">
+          <End Type="SpedycjaModel.Route" Role="Route" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idRoutes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusHistory_Orders">
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SpedycjaModel.StatusHistory" Role="StatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StatusHistory">
+              <PropertyRef Name="idOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Zlecenia_Pracownicy">
           <End Type="SpedycjaModel.Worker" Role="Worker" Multiplicity="0..1" />
           <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
@@ -683,6 +696,30 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zlecenia_Status_Zlecenie">
+          <End Type="SpedycjaModel.StatusOrder" Role="StatusOrder" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zlecenia_Typ_Pojazd">
+          <End Type="SpedycjaModel.TypesVehicle" Role="TypesVehicle" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesVehicle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idTypeVehicles" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -710,85 +747,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Route">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndStreet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartCoord" Type="Geography" Nullable="false" />
-          <Property Name="EndCoord" Type="Geography" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="StatusHistory1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idStatus" Type="Int32" Nullable="false" />
-          <Property Name="idWorker" Type="Int32" Nullable="false" />
-          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idOrder" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_StatusHistory_Orders1" FromRole="StatusHistory1" ToRole="Order" />
-          <NavigationProperty Name="StatusOrder" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders1" FromRole="StatusHistory1" ToRole="StatusOrder" />
-          <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_StatusHistory_Workers1" FromRole="StatusHistory1" ToRole="Worker" />
-        </EntityType>
-        <Association Name="FK_Orders_Routes">
-          <End Type="SpedycjaModel.Route" Role="Route" Multiplicity="0..1" />
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Route">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="idRoutes" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_Orders1">
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SpedycjaModel.StatusHistory1" Role="StatusHistory1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory1">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_StatusOrders1">
-          <End Type="SpedycjaModel.StatusOrder" Role="StatusOrder" Multiplicity="1" />
-          <End Type="SpedycjaModel.StatusHistory1" Role="StatusHistory1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusOrder">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory1">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_Workers1">
-          <End Type="SpedycjaModel.Worker" Role="Worker" Multiplicity="1" />
-          <End Type="SpedycjaModel.StatusHistory1" Role="StatusHistory1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Worker">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory1">
-              <PropertyRef Name="idWorker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -797,83 +756,8 @@
           <EntitySetMapping Name="AreaActivities">
             <EntityTypeMapping TypeName="SpedycjaModel.AreaActivity">
               <MappingFragment StoreEntitySet="AreaActivities">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="AreaName" ColumnName="AreaName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="SpedycjaModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Firm" ColumnName="Firm" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Drivers">
-            <EntityTypeMapping TypeName="SpedycjaModel.Driver">
-              <MappingFragment StoreEntitySet="Drivers">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Firm" ColumnName="Firm" />
-                <ScalarProperty Name="IdAreasActivity" ColumnName="IdAreasActivity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Loads">
-            <EntityTypeMapping TypeName="SpedycjaModel.Load">
-              <MappingFragment StoreEntitySet="Loads">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="IdType" ColumnName="IdType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SpedycjaModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="idRoutes" ColumnName="idRoutes" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idLoad" ColumnName="idLoad" />
-                <ScalarProperty Name="idWorker" ColumnName="idWorker" />
-                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
-                <ScalarProperty Name="idTypeVehicles" ColumnName="idTypeVehicles" />
-                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
-                <ScalarProperty Name="idDriver" ColumnName="idDriver" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatusOrders">
-            <EntityTypeMapping TypeName="SpedycjaModel.StatusOrder">
-              <MappingFragment StoreEntitySet="StatusOrders">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TypesFreights">
-            <EntityTypeMapping TypeName="SpedycjaModel.TypesFreight">
-              <MappingFragment StoreEntitySet="TypesFreights">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TypesVehicles">
-            <EntityTypeMapping TypeName="SpedycjaModel.TypesVehicle">
-              <MappingFragment StoreEntitySet="TypesVehicles">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -888,13 +772,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Workers">
-            <EntityTypeMapping TypeName="SpedycjaModel.Worker">
-              <MappingFragment StoreEntitySet="Workers">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SpedycjaModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Firm" ColumnName="Firm" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="SpedycjaModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="IdAreasActivity" ColumnName="IdAreasActivity" />
+                <ScalarProperty Name="Firm" ColumnName="Firm" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loads">
+            <EntityTypeMapping TypeName="SpedycjaModel.Load">
+              <MappingFragment StoreEntitySet="Loads">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="SpedycjaModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="idRoutes" ColumnName="idRoutes" />
+                <ScalarProperty Name="idDriver" ColumnName="idDriver" />
+                <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+                <ScalarProperty Name="idTypeVehicles" ColumnName="idTypeVehicles" />
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="idWorker" ColumnName="idWorker" />
+                <ScalarProperty Name="idLoad" ColumnName="idLoad" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -914,13 +838,59 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StatusHistory1">
-            <EntityTypeMapping TypeName="SpedycjaModel.StatusHistory1">
+          <EntitySetMapping Name="StatusHistories">
+            <EntityTypeMapping TypeName="SpedycjaModel.StatusHistory">
               <MappingFragment StoreEntitySet="StatusHistories">
                 <ScalarProperty Name="idOrder" ColumnName="idOrder" />
                 <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
                 <ScalarProperty Name="idWorker" ColumnName="idWorker" />
                 <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusOrders">
+            <EntityTypeMapping TypeName="SpedycjaModel.StatusOrder">
+              <MappingFragment StoreEntitySet="StatusOrders">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SpedycjaModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesFreights">
+            <EntityTypeMapping TypeName="SpedycjaModel.TypesFreight">
+              <MappingFragment StoreEntitySet="TypesFreights">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesVehicles">
+            <EntityTypeMapping TypeName="SpedycjaModel.TypesVehicle">
+              <MappingFragment StoreEntitySet="TypesVehicles">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="SpedycjaModel.Worker">
+              <MappingFragment StoreEntitySet="Workers">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

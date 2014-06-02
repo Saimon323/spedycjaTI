@@ -12,18 +12,12 @@ namespace Spedycja.Model.EntityModels
     using System;
     using System.Collections.Generic;
     
-    public partial class StatusOrder
+    public partial class sysdiagram
     {
-        public StatusOrder()
-        {
-            this.Orders = new HashSet<Order>();
-            this.StatusHistories = new HashSet<StatusHistory>();
-        }
-    
-        public int id { get; set; }
-        public string Status { get; set; }
-    
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<StatusHistory> StatusHistories { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
