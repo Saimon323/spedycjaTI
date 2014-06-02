@@ -18,7 +18,7 @@ namespace Spedycja.Site.Controllers
             return View();
         }
 
-        public ActionResult OrderPhase2()
+        public ActionResult OrderPhase2(JoinedClientsModel model)
         {
             return View();
         }

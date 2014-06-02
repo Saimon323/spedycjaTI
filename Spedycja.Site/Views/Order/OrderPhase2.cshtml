@@ -3,9 +3,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@model Spedycja.Model.Models.JoinedClientsModel
+
 <h2>OrderPhase2</h2>
 
 <h3>Krok 2 - wypełnij dane zleceniodawcy i firmy transportowej</h3>
+
+@using (Html.BeginForm("NewOrder", "Order", FormMethod.Post, null))
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Zapisz" />
+}
+
 
 <form action="/Order/OrderList" method="POST">
 

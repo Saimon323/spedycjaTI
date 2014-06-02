@@ -35,16 +35,22 @@ namespace Spedycja.Model.Models
         [HiddenInput(DisplayValue = true)]
         public int Status { get; set; }
 
+        [Display(Name = "Tasa z kraju:")]
         public string StartCountry { get; set; }
 
+        [Display(Name = "Trasa z miasta:")]
         public string StartCity { get; set; }
 
+        [Display(Name = "Trasa z ulicy:")]
         public string StartStreet { get; set; }
 
+        [Display(Name = "Trasa do kraju:")]
         public string EndCountry { get; set; }
 
+        [Display(Name = "Trasa do miasta:")]
         public string EndCity { get; set; }
 
+        [Display(Name = "Trasa do ulica:")]
         public string EndStreet { get; set; }
 
         [Required]
@@ -56,5 +62,70 @@ namespace Spedycja.Model.Models
 
         [HiddenInput(DisplayValue = false)]
         public int? DriverId { get; set; }
+    }
+
+    public class ClientModel
+    {
+        [Display(Name = "Imię")]
+        public string Name { get; set; }
+
+        [Display(Name = "Nazwisko")]
+        public string Surname { get; set; }
+
+        [Display(Name = "Adres")]
+        public string Address { get; set; }
+
+        [Display(Name = "Nr telefonu")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Nazwa firmy")]
+        public string Company { get; set; }
+    }
+
+    public class DriverModel : ClientModel
+    {
+        [Display(Name = "Obszar działania")]
+        public string ActivityArea { get; set; }
+    }
+
+    public class CustomerModel : ClientModel
+    {
+        
+    }
+
+    public class JoinedClientsModel
+    {
+        [Display(Name = "Imię kierowcy")]
+        public string DriverName { get; set; }
+
+        [Display(Name = "Nazwisko kierowcy")]
+        public string DriverSurname { get; set; }
+
+        [Display(Name = "Adres kierowcy")]
+        public string DriverAddress { get; set; }
+
+        [Display(Name = "Nr telefonu kierowcy")]
+        public string DriverPhoneNumber { get; set; }
+
+        [Display(Name = "Nazwa firmy kierowcy")]
+        public string DriverCompany { get; set; }
+
+        [Display(Name = "Obszar działania kierowcy")]
+        public string DriverActivityArea { get; set; }
+
+        [Display(Name = "Imię zleceniodawcy")]
+        public string CustomerName { get; set; }
+
+        [Display(Name = "Nazwisko zleceniodawcy")]
+        public string CustomerSurname { get; set; }
+
+        [Display(Name = "Adres zleceniodawcy")]
+        public string CustomerAddress { get; set; }
+
+        [Display(Name = "Nr telefonu zleceniodawcy")]
+        public string CustomerPhoneNumber { get; set; }
+
+        [Display(Name = "Nazwa firmy zleceniodawcy")]
+        public string CustomerCompany { get; set; }
     }
 }
