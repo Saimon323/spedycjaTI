@@ -1,0 +1,183 @@
+﻿@using Spedycja.Model.EntityModels
+@using Spedycja.Model.Repositories
+@using Spedycja.Model.Repositories.Interfaces
+@using Spedycja.Site.Controllers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/reset.min.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/main.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/leaflet.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/animate-custom.css")" type="text/css" />
+    @*<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" />*@
+
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spedycja</title>
+
+    @Styles.Render("~/Content/Layout2/normalize.css")
+    @Styles.Render("~/Content/Layout2/demo.css")
+    @Styles.Render("~/Content/Layout2/icons.css")
+    @Styles.Render("~/Content/Layout2/component.css")
+    @Scripts.Render("~/Scripts/Layout2/modernizr.custom.js")
+    @Scripts.Render("~/Scripts/Layout2/classie.js")
+    @Scripts.Render("~/Scripts/Layout2/mlpushmenu.js")
+    @Scripts.Render("~/Scripts/leaflet-0.6.4.js")
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Push Wrapper -->
+        <div class="mp-pusher" id="mp-pusher">
+
+            <!-- mp-menu -->
+            <nav id="mp-menu" class="mp-menu">
+                <div class="mp-level">
+                    <h2 class="icon icon-world">Menu</h2>
+                    <ul>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-display" href="#">Zlecenia</a>
+                            <div class="mp-level">
+                                <h2 class="icon icon-display">Lista zleceń</h2>
+                                <ul>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-display" href="@Url.Action("NewOrder", "Order")"> Nowe zlecenie</a>
+                                    </li>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-phone" href="#">wg daty</a>
+
+                                    </li>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-tv" href="#">wg zleceniodawcy</a>
+
+                                    </li>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-camera" href="#">wg towaru</a>
+                                        @*<div class="mp-level">
+                                            <h2>Cameras</h2>
+                                            <ul>
+                                                <li><a href="#">Smart Shot</a></li>
+                                                <li><a href="#">Power Shooter</a></li>
+                                                <li><a href="#">Easy Photo Maker</a></li>
+                                                <li><a href="#">Super Pixel</a></li>
+                                            </ul>
+                                        </div>*@
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-news" href="#">Mapa</a>
+                            <div class="mp-level">
+                                @*<h2 class="icon icon-news">Magazines</h2>
+                                <ul>
+                                    <li><a href="#">National Geographic</a></li>
+                                    <li><a href="#">Scientific American</a></li>
+                                    <li><a href="#">The Spectator</a></li>
+                                    <li><a href="#">The Rambler</a></li>
+                                    <li><a href="#">Physics World</a></li>
+                                    <li><a href="#">The New Scientist</a></li>
+                                </ul>*@
+                            </div>
+                        </li>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-shop" href="#">Zleceniodawcy</a>
+                            <div class="mp-level">
+                                <h2 class="icon icon-shop">Zleceniodawcy</h2>
+                                <ul>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-t-shirt" href="#">Nowi</a>
+                                        <div class="mp-level">
+                                            <h2 class="icon icon-t-shirt">Nowi</h2>
+                                            @*<ul>
+                                                <li class="icon icon-arrow-left">
+                                                    <a class="icon icon-female" href="#">Women's Clothing</a>
+                                                    <div class="mp-level">
+                                                        <h2>Women's Clothing</h2>
+                                                        <ul>
+                                                            <li><a href="#">Tops</a></li>
+                                                            <li><a href="#">Dresses</a></li>
+                                                            <li><a href="#">Trousers</a></li>
+                                                            <li><a href="#">Shoes</a></li>
+                                                            <li><a href="#">Sale</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="icon icon-arrow-left">
+                                                    <a class="icon icon-male" href="#">Men's Clothing</a>
+                                                    <div class="mp-level">
+                                                        <h2>Men's Clothing</h2>
+                                                        <ul>
+                                                            <li><a href="#">Shirts</a></li>
+                                                            <li><a href="#">Trousers</a></li>
+                                                            <li><a href="#">Shoes</a></li>
+                                                            <li><a href="#">Sale</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>*@
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="icon icon-diamond" href="#">Zaufani</a>
+                                    </li>
+                            </div>
+                        </li>
+                        @*<li><a class="icon icon-photo" href="#">Collections</a></li>
+                        <li><a class="icon icon-wallet" href="#">Credits</a></li>*@
+                    </ul>
+                </div>
+            </nav>
+            <!-- /mp-menu -->
+
+            @{
+    var cookie = Request.Cookies["LogOn"];
+}
+@if (cookie != null)
+{
+    IWorkerRepository workerRepository = new WorkerRepository();
+    Worker workerExist = workerRepository.getWorkerByLogin(cookie.Value);
+
+    <p class="title">Spedycja - panel firmy</p>
+    
+    <text>
+        @if (workerExist != null)
+        {
+            <p><a href="#" id="trigger" class="menu-trigger">Menu</a></p>
+
+        }
+
+    </text>
+}
+            
+            <div id="login" class="siteLogin">
+                @Html.Partial("_LoginPartial")
+            </div>
+
+
+        
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+
+        </div><!-- /pusher -->
+    </div><!-- /container -->
+
+    
+    <script>
+        new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
+    </script>
+
+   
+</body>
+</html>
