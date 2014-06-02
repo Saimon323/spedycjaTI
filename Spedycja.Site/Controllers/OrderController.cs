@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Spedycja.Model.Models;
+
 
 namespace Spedycja.Site.Controllers
 {
@@ -11,7 +13,7 @@ namespace Spedycja.Site.Controllers
         //
         // GET: /Order/
 
-        public ActionResult NewOrder()
+        public ActionResult NewOrder(OrderModel model)
         {
             return View();
         }

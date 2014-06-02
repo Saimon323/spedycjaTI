@@ -1,9 +1,20 @@
-﻿@{
+﻿@model Spedycja.Model.Models.OrderModel
+
+@{
     ViewBag.Title = "NewOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <h2>Nowe zamówienie</h2>
+
+@using (Html.BeginForm("NewOrder", "Order", FormMethod.Post, null))
+{
+    @Html.EditorForModel()
+    <input type="submit" value="submit" />
+}
+
 
 <form action="/Order/OrderPhase2" method="POST">
    
