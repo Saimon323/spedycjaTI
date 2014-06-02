@@ -89,9 +89,6 @@
     <Compile Include="EntityModels\StatusHistory.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModels\StatusHistory1.cs">
-      <DependentUpon>Spedycja.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityModels\StatusOrder.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>

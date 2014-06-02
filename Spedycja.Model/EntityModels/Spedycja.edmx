@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SpedycjaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SpedycjaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AreaActivities">
           <Key>
             <PropertyRef Name="id" />
@@ -419,10 +419,9 @@
           <Property Name="idRoutes" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Comments" Relationship="SpedycjaModel.FK_Comments_Orders" FromRole="Order" ToRole="Comment" />
-          <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="Order" ToRole="StatusHistory" />
           <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_Zlecenia_Pracownicy" FromRole="Order" ToRole="Worker" />
           <NavigationProperty Name="Route" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Order" ToRole="Route" />
-          <NavigationProperty Name="StatusHistories1" Relationship="SpedycjaModel.FK_StatusHistory_Orders1" FromRole="Order" ToRole="StatusHistory1" />
+          <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="Order" ToRole="StatusHistory" />
         </EntityType>
         <EntityType Name="StatusOrder">
           <Key>
@@ -432,7 +431,6 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Status_Zlecenie" FromRole="StatusOrders" ToRole="Orders" />
           <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders" FromRole="StatusOrder" ToRole="StatusHistory" />
-          <NavigationProperty Name="StatusHistories1" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders1" FromRole="StatusOrder" ToRole="StatusHistory1" />
         </EntityType>
         <EntityType Name="TypesFreight">
           <Key>
@@ -572,19 +570,24 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <EntitySet Name="Comments" EntityType="SpedycjaModel.Comment" />
-          <EntitySet Name="StatusHistories" EntityType="SpedycjaModel.StatusHistory" />
           <AssociationSet Name="FK_Comments_Orders" Association="SpedycjaModel.FK_Comments_Orders">
             <End Role="Order" EntitySet="Orders" />
             <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Orders" Association="SpedycjaModel.FK_StatusHistory_Orders">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="StatusHistory" EntitySet="StatusHistories" />
           </AssociationSet>
           <EntitySet Name="Workers" EntityType="SpedycjaModel.Worker" />
           <AssociationSet Name="FK_Zlecenia_Pracownicy" Association="SpedycjaModel.FK_Zlecenia_Pracownicy">
             <End Role="Worker" EntitySet="Workers" />
             <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
+          <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="StatusHistories" EntityType="SpedycjaModel.StatusHistory" />
+          <AssociationSet Name="FK_StatusHistory_Orders" Association="SpedycjaModel.FK_StatusHistory_Orders">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="StatusHistory" EntitySet="StatusHistories" />
           </AssociationSet>
           <AssociationSet Name="FK_StatusHistory_StatusOrders" Association="SpedycjaModel.FK_StatusHistory_StatusOrders">
             <End Role="StatusOrder" EntitySet="StatusOrders" />
@@ -594,25 +597,7 @@
             <End Role="Worker" EntitySet="Workers" />
             <End Role="StatusHistory" EntitySet="StatusHistories" />
           </AssociationSet>
-          <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
-          <EntitySet Name="StatusHistory1" EntityType="SpedycjaModel.StatusHistory1" />
-          <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
-            <End Role="Route" EntitySet="Routes" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Orders1" Association="SpedycjaModel.FK_StatusHistory_Orders1">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="StatusHistory1" EntitySet="StatusHistory1" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_StatusOrders1" Association="SpedycjaModel.FK_StatusHistory_StatusOrders1">
-            <End Role="StatusOrder" EntitySet="StatusOrders" />
-            <End Role="StatusHistory1" EntitySet="StatusHistory1" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StatusHistory_Workers1" Association="SpedycjaModel.FK_StatusHistory_Workers1">
-            <End Role="Worker" EntitySet="Workers" />
-            <End Role="StatusHistory1" EntitySet="StatusHistory1" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="id" />
@@ -624,19 +609,6 @@
           <Property Name="idOrder" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_Comments_Orders" FromRole="Comment" ToRole="Order" />
         </EntityType>
-        <EntityType Name="StatusHistory">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idStatus" Type="Int32" Nullable="false" />
-          <Property Name="idWorker" Type="Int32" Nullable="false" />
-          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idOrder" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="StatusHistory" ToRole="Order" />
-          <NavigationProperty Name="StatusOrder" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders" FromRole="StatusHistory" ToRole="StatusOrder" />
-          <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_StatusHistory_Workers" FromRole="StatusHistory" ToRole="Worker" />
-        </EntityType>
         <Association Name="FK_Comments_Orders">
           <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1" />
           <End Type="SpedycjaModel.Comment" Role="Comment" Multiplicity="*" />
@@ -645,18 +617,6 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_Orders">
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="SpedycjaModel.StatusHistory" Role="StatusHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory">
               <PropertyRef Name="idOrder" />
             </Dependent>
           </ReferentialConstraint>
@@ -672,7 +632,6 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Pracownicy" FromRole="Worker" ToRole="Order" />
           <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Workers" FromRole="Worker" ToRole="StatusHistory" />
-          <NavigationProperty Name="StatusHistories1" Relationship="SpedycjaModel.FK_StatusHistory_Workers1" FromRole="Worker" ToRole="StatusHistory1" />
         </EntityType>
         <Association Name="FK_Zlecenia_Pracownicy">
           <End Type="SpedycjaModel.Worker" Role="Worker" Multiplicity="0..1" />
@@ -683,6 +642,60 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndStreet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartCoord" Type="Geography" Nullable="false" />
+          <Property Name="EndCoord" Type="Geography" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Orders_Routes">
+          <End Type="SpedycjaModel.Route" Role="Route" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idRoutes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StatusHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idStatus" Type="Int32" Nullable="false" />
+          <Property Name="idWorker" Type="Int32" Nullable="false" />
+          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="StatusHistory" ToRole="Order" />
+          <NavigationProperty Name="StatusOrder" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders" FromRole="StatusHistory" ToRole="StatusOrder" />
+          <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_StatusHistory_Workers" FromRole="StatusHistory" ToRole="Worker" />
+        </EntityType>
+        <Association Name="FK_StatusHistory_Orders">
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SpedycjaModel.StatusHistory" Role="StatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StatusHistory">
+              <PropertyRef Name="idOrder" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -710,85 +723,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Route">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndStreet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartCoord" Type="Geography" Nullable="false" />
-          <Property Name="EndCoord" Type="Geography" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="StatusHistory1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idStatus" Type="Int32" Nullable="false" />
-          <Property Name="idWorker" Type="Int32" Nullable="false" />
-          <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idOrder" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Order" Relationship="SpedycjaModel.FK_StatusHistory_Orders1" FromRole="StatusHistory1" ToRole="Order" />
-          <NavigationProperty Name="StatusOrder" Relationship="SpedycjaModel.FK_StatusHistory_StatusOrders1" FromRole="StatusHistory1" ToRole="StatusOrder" />
-          <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_StatusHistory_Workers1" FromRole="StatusHistory1" ToRole="Worker" />
-        </EntityType>
-        <Association Name="FK_Orders_Routes">
-          <End Type="SpedycjaModel.Route" Role="Route" Multiplicity="0..1" />
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Route">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="idRoutes" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_Orders1">
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SpedycjaModel.StatusHistory1" Role="StatusHistory1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory1">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_StatusOrders1">
-          <End Type="SpedycjaModel.StatusOrder" Role="StatusOrder" Multiplicity="1" />
-          <End Type="SpedycjaModel.StatusHistory1" Role="StatusHistory1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StatusOrder">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory1">
-              <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StatusHistory_Workers1">
-          <End Type="SpedycjaModel.Worker" Role="Worker" Multiplicity="1" />
-          <End Type="SpedycjaModel.StatusHistory1" Role="StatusHistory1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Worker">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="StatusHistory1">
-              <PropertyRef Name="idWorker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -914,8 +849,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StatusHistory1">
-            <EntityTypeMapping TypeName="SpedycjaModel.StatusHistory1">
+          <EntitySetMapping Name="StatusHistories">
+            <EntityTypeMapping TypeName="SpedycjaModel.StatusHistory">
               <MappingFragment StoreEntitySet="StatusHistories">
                 <ScalarProperty Name="idOrder" ColumnName="idOrder" />
                 <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />

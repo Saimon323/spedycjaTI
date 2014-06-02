@@ -21,20 +21,16 @@
         <AssociationConnector Association="SpedycjaModel.FK_Zlecenia_Status_Zlecenie" ManuallyRouted="false" />
         <AssociationConnector Association="SpedycjaModel.FK_Zlecenia_Typ_Pojazd" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SpedycjaModel.Comment" Width="1.5" PointX="7.5" PointY="10.125" />
-        <EntityTypeShape EntityType="SpedycjaModel.StatusHistory" Width="1.5" PointX="7.5" PointY="13.125" />
         <AssociationConnector Association="SpedycjaModel.FK_Comments_Orders" />
-        <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Orders" />
         <EntityTypeShape EntityType="SpedycjaModel.Worker" Width="1.5" PointX="5.375" PointY="6.875" />
         <AssociationConnector Association="SpedycjaModel.FK_Zlecenia_Pracownicy" />
+        <EntityTypeShape EntityType="SpedycjaModel.Route" Width="1.5" PointX="3" PointY="16.875" />
+        <AssociationConnector Association="SpedycjaModel.FK_Orders_Routes" />
+        <EntityTypeShape EntityType="SpedycjaModel.StatusHistory" Width="1.5" PointX="7.625" PointY="6.125" />
+        <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Orders" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_StatusOrders" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Workers" />
-        <EntityTypeShape EntityType="SpedycjaModel.Route" Width="1.5" PointX="3" PointY="16.875" />
-        <EntityTypeShape EntityType="SpedycjaModel.StatusHistory1" Width="1.5" PointX="7.625" PointY="6.25" />
-        <AssociationConnector Association="SpedycjaModel.FK_Orders_Routes" />
-        <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Orders1" />
-        <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_StatusOrders1" />
-        <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Workers1" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
