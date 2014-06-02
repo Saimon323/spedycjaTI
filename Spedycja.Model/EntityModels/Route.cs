@@ -22,10 +22,10 @@ namespace Spedycja.Model.EntityModels
         public int id { get; set; }
         public string StartPoint { get; set; }
         public string EndPoint { get; set; }
-        public double StartLat { get; set; }
-        public double StartLong { get; set; }
-        public double EndLat { get; set; }
-        public double EndLong { get; set; }
+        public Nullable<double> StartLat { get; set; }
+        public Nullable<double> StartLong { get; set; }
+        public Nullable<double> EndLat { get; set; }
+        public Nullable<double> EndLong { get; set; }
     
         public virtual ICollection<Order> Orders { get; set; }
     }

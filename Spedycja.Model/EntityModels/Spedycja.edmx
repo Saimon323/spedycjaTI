@@ -74,12 +74,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StartPoint" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="EndPoint" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="StartLat" Type="float" Nullable="false" />
-          <Property Name="StartLong" Type="float" Nullable="false" />
-          <Property Name="EndLat" Type="float" Nullable="false" />
-          <Property Name="EndLong" Type="float" Nullable="false" />
+          <Property Name="StartPoint" Type="nvarchar(max)" />
+          <Property Name="EndPoint" Type="nvarchar(max)" />
+          <Property Name="StartLat" Type="float" />
+          <Property Name="StartLong" Type="float" />
+          <Property Name="EndLat" Type="float" />
+          <Property Name="EndLong" Type="float" />
         </EntityType>
         <EntityType Name="StatusHistories">
           <Key>
@@ -699,12 +699,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartPoint" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndPoint" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartLat" Type="Double" Nullable="false" />
-          <Property Name="StartLong" Type="Double" Nullable="false" />
-          <Property Name="EndLat" Type="Double" Nullable="false" />
-          <Property Name="EndLong" Type="Double" Nullable="false" />
+          <Property Name="StartPoint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndPoint" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartLat" Type="Double" />
+          <Property Name="StartLong" Type="Double" />
+          <Property Name="EndLat" Type="Double" />
+          <Property Name="EndLong" Type="Double" />
           <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
         </EntityType>
         <Association Name="FK_Orders_Routes">
