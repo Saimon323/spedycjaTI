@@ -1,0 +1,23 @@
+﻿@model Spedycja.Site.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <fieldset>
+            <legend>Logowanie</legend>
+            @Html.LabelFor(l => l.Login, "Login")
+            @Html.TextBoxFor(l => l.Login)
+            @Html.ValidationMessageFor(l => l.Login)
+            @Html.LabelFor(l => l.Password, "Hasło")
+            @Html.PasswordFor(l => l.Password)
+            @Html.ValidationMessageFor(l => l.Password)
+            <input type="submit" value="Zaloguj" />
+        </fieldset>
+    </div>
+
+}
+

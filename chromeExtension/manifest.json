@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Spedycja",
+  "description": "Kradnie dane żeby była spedycja.",
+  "version": "1.0",
+  "background": {
+      "scripts": ["background.js"]
+    },   
+  "content_scripts": [
+  {
+    "matches":  ["http://www.transportuj.com.pl/index.php?page=ladunek&go=szczegoly*","http://www.transportuj.com.pl/index.php?page=ladunek&go=szczegoly*"],
+    "js":   ["jquery-1.11.0.min.js", "underscore.string.js","content.js"]
+  },
+  {
+    "matches":  ["http://localhost:9927/Order/NewOrder*"],
+    "js":   ["jquery-1.11.0.min.js", "injectForm.js"]
+  }  
+  ]
+}

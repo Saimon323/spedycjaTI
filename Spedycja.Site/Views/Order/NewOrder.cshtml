@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "NewOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nowe zamówienie</h2>
+
+<form action="/Order/OrderPhase2" method="POST">
+   
+    <fieldset>
+        
+        <h4>Dane Ładunku</h4>
+        
+        <input type="hidden" id="oEmployee"/>
+        
+        Nazwa ładunku<input type="text" id="oName" /><br />
+
+        Rodzaj ładunku<input type="text" id="oType" /><br/>
+
+        Waga <input type="number" id="oWeight" />
+        
+        Jednostka<select id="lWeightType" >
+                             
+                     <option selected="selected"  value=""></option>
+
+                     <option value="0">t</option>
+
+                     <option value="1">kg</option>
+
+                     <option value="2">g</option>
+
+                 </select><br/>
+        
+        Objętość <input type="number" id="oVolume"/>
+
+        Jednostka <select id="lVolumeType">
+                     
+                      <option selected="selected" value=""></option>
+
+                      <option value="0">l</option>
+
+                      <option value="1">op</option>
+
+                  </select><br/>
+        
+        Cena <input type="number" id="oPrice"/><br/>
+        
+        Typ pojazdu <select id="lVehicleType">
+                        
+                        <option selected="selected" value=""></option>
+
+                        <option value="0">naczepa</option>
+
+                        <option value="1">plandeka</option>
+
+                    </select><br />
+        
+        Trasa od<input type="text" id="oStartPoint" /><br />
+        
+        Trasa do<input type="text" id="oStartPoint" /><br />
+
+    </fieldset>
+
+    <p><input type="submit" value="Zapisz" /> </p>
+
+</form>
