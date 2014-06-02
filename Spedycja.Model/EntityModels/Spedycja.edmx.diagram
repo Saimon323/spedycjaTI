@@ -24,12 +24,12 @@
         <AssociationConnector Association="SpedycjaModel.FK_Comments_Orders" />
         <EntityTypeShape EntityType="SpedycjaModel.Worker" Width="1.5" PointX="5.375" PointY="6.875" />
         <AssociationConnector Association="SpedycjaModel.FK_Zlecenia_Pracownicy" />
-        <EntityTypeShape EntityType="SpedycjaModel.Route" Width="1.5" PointX="3" PointY="16.875" />
-        <AssociationConnector Association="SpedycjaModel.FK_Orders_Routes" />
         <EntityTypeShape EntityType="SpedycjaModel.StatusHistory" Width="1.5" PointX="7.625" PointY="6.125" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Orders" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_StatusOrders" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Workers" />
+        <EntityTypeShape EntityType="SpedycjaModel.Route" Width="1.5" PointX="7.375" PointY="1" />
+        <AssociationConnector Association="SpedycjaModel.FK_Orders_Routes" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -37,7 +37,7 @@ namespace Spedycja.Model.EntityModels
         public virtual TypesVehicle TypesVehicle { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Worker Worker { get; set; }
-        public virtual Route Route { get; set; }
         public virtual ICollection<StatusHistory> StatusHistories { get; set; }
+        public virtual Route Route { get; set; }
     }
 }

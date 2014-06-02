@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SpedycjaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SpedycjaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AreaActivities">
           <Key>
             <PropertyRef Name="id" />
@@ -74,14 +74,12 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StartCountry" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="StartCity" Type="nvarchar(max)" />
-          <Property Name="StartStreet" Type="nvarchar(max)" />
-          <Property Name="EndCountry" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="EndCity" Type="nvarchar(max)" />
-          <Property Name="EndStreet" Type="nvarchar" MaxLength="50" />
-          <Property Name="StartCoord" Type="geography" Nullable="false" />
-          <Property Name="EndCoord" Type="geography" Nullable="false" />
+          <Property Name="StartPoint" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EndPoint" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StartLat" Type="float" Nullable="false" />
+          <Property Name="StartLong" Type="float" Nullable="false" />
+          <Property Name="EndLat" Type="float" Nullable="false" />
+          <Property Name="EndLong" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="StatusHistories">
           <Key>
@@ -420,8 +418,8 @@
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Comments" Relationship="SpedycjaModel.FK_Comments_Orders" FromRole="Order" ToRole="Comment" />
           <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_Zlecenia_Pracownicy" FromRole="Order" ToRole="Worker" />
-          <NavigationProperty Name="Route" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Order" ToRole="Route" />
           <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="Order" ToRole="StatusHistory" />
+          <NavigationProperty Name="Route" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Order" ToRole="Route" />
         </EntityType>
         <EntityType Name="StatusOrder">
           <Key>
@@ -579,11 +577,6 @@
             <End Role="Worker" EntitySet="Workers" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
-          <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
-            <End Role="Route" EntitySet="Routes" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
           <EntitySet Name="StatusHistories" EntityType="SpedycjaModel.StatusHistory" />
           <AssociationSet Name="FK_StatusHistory_Orders" Association="SpedycjaModel.FK_StatusHistory_Orders">
             <End Role="Order" EntitySet="Orders" />
@@ -596,6 +589,11 @@
           <AssociationSet Name="FK_StatusHistory_Workers" Association="SpedycjaModel.FK_StatusHistory_Workers">
             <End Role="Worker" EntitySet="Workers" />
             <End Role="StatusHistory" EntitySet="StatusHistories" />
+          </AssociationSet>
+          <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
+          <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Comment">
@@ -642,33 +640,6 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="idWorker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Route">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StartStreet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndCountry" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndCity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EndStreet" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartCoord" Type="Geography" Nullable="false" />
-          <Property Name="EndCoord" Type="Geography" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
-        </EntityType>
-        <Association Name="FK_Orders_Routes">
-          <End Type="SpedycjaModel.Route" Role="Route" Multiplicity="0..1" />
-          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Route">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="idRoutes" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -720,6 +691,31 @@
             </Principal>
             <Dependent Role="StatusHistory">
               <PropertyRef Name="idWorker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartPoint" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EndPoint" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartLat" Type="Double" Nullable="false" />
+          <Property Name="StartLong" Type="Double" Nullable="false" />
+          <Property Name="EndLat" Type="Double" Nullable="false" />
+          <Property Name="EndLong" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Route" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Orders_Routes">
+          <End Type="SpedycjaModel.Route" Role="Route" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idRoutes" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -834,21 +830,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Routes">
-            <EntityTypeMapping TypeName="SpedycjaModel.Route">
-              <MappingFragment StoreEntitySet="Routes">
-                <ScalarProperty Name="EndCoord" ColumnName="EndCoord" />
-                <ScalarProperty Name="StartCoord" ColumnName="StartCoord" />
-                <ScalarProperty Name="EndStreet" ColumnName="EndStreet" />
-                <ScalarProperty Name="EndCity" ColumnName="EndCity" />
-                <ScalarProperty Name="EndCountry" ColumnName="EndCountry" />
-                <ScalarProperty Name="StartStreet" ColumnName="StartStreet" />
-                <ScalarProperty Name="StartCity" ColumnName="StartCity" />
-                <ScalarProperty Name="StartCountry" ColumnName="StartCountry" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="StatusHistories">
             <EntityTypeMapping TypeName="SpedycjaModel.StatusHistory">
               <MappingFragment StoreEntitySet="StatusHistories">
@@ -856,6 +837,19 @@
                 <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
                 <ScalarProperty Name="idWorker" ColumnName="idWorker" />
                 <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="SpedycjaModel.Route">
+              <MappingFragment StoreEntitySet="Routes">
+                <ScalarProperty Name="EndLong" ColumnName="EndLong" />
+                <ScalarProperty Name="EndLat" ColumnName="EndLat" />
+                <ScalarProperty Name="StartLong" ColumnName="StartLong" />
+                <ScalarProperty Name="StartLat" ColumnName="StartLat" />
+                <ScalarProperty Name="EndPoint" ColumnName="EndPoint" />
+                <ScalarProperty Name="StartPoint" ColumnName="StartPoint" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

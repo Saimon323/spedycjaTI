@@ -35,7 +35,7 @@ namespace Spedycja.Model.EntityModels
         public virtual DbSet<TypesVehicle> TypesVehicles { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Worker> Workers { get; set; }
-        public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<StatusHistory> StatusHistories { get; set; }
+        public virtual DbSet<Route> Routes { get; set; }
     }
 }

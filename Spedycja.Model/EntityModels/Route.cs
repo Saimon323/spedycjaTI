@@ -20,14 +20,12 @@ namespace Spedycja.Model.EntityModels
         }
     
         public int id { get; set; }
-        public string StartCountry { get; set; }
-        public string StartCity { get; set; }
-        public string StartStreet { get; set; }
-        public string EndCountry { get; set; }
-        public string EndCity { get; set; }
-        public string EndStreet { get; set; }
-        public System.Data.Entity.Spatial.DbGeography StartCoord { get; set; }
-        public System.Data.Entity.Spatial.DbGeography EndCoord { get; set; }
+        public string StartPoint { get; set; }
+        public string EndPoint { get; set; }
+        public double StartLat { get; set; }
+        public double StartLong { get; set; }
+        public double EndLat { get; set; }
+        public double EndLong { get; set; }
     
         public virtual ICollection<Order> Orders { get; set; }
     }

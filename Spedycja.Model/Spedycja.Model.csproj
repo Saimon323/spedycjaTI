@@ -93,9 +93,6 @@
     <Compile Include="EntityModels\StatusOrder.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModels\sysdiagram.cs">
-      <DependentUpon>Spedycja.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityModels\TypesFreight.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
