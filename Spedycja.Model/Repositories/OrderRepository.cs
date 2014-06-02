@@ -36,14 +36,12 @@ namespace Spedycja.Model.Repositories
                 TypesFreight = new TypesFreightRepository().GetTypesFreightById(newOrder.CargoType),
                 Weight = newOrder.Weight
             };
+            string startPoint = newOrder.StartCountry + ";" + newOrder.StartCity + ";" + newOrder.StartStreet;
+            string endPoint = newOrder.EndCountry + ";" + newOrder.EndCity + ";" + newOrder.EndStreet;
             order.Route = new Route()
             {
-                StartCountry = newOrder.StartCountry,
-                StartCity = newOrder.StartCity,
-                StartStreet = newOrder.StartStreet,
-                EndCountry = newOrder.EndCountry,
-                EndCity = newOrder.EndCity,
-                EndStreet = newOrder.EndStreet
+                StartPoint = startPoint,
+                EndPoint = endPoint
             };
             order.StatusOrder = new StatusOrderRepository().GetStatusOrderById(1);
             order.StatusHistories.Add(new StatusHistory()

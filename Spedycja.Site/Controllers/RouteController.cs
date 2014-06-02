@@ -24,10 +24,10 @@ namespace Spedycja.Site.Controllers
             string place;
             foreach(var route in routes)
             {
-                place = route.StartCountry + "," + route.StartCity + "," + route.StartStreet;
+                place = route.StartPoint.Replace(";", ",");
                 routeToAdd = getPOI(place);
                 RoutesList.Add(routeToAdd);
-                place = route.EndCountry + "," + route.EndCity + "," + route.EndStreet;
+                place = route.EndPoint.Replace(";",",");
                 routeToAdd = getPOI(place);
                 RoutesList.Add(routeToAdd);
             }

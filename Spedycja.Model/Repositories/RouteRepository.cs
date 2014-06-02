@@ -24,8 +24,8 @@ namespace Spedycja.Model.Repositories
 
         public List<RouteStatModel> GetRoutes()
         {
-            var startPoints = getAllRoutes().Select(t => t.StartCoord);
-            var endPoints = getAllRoutes().Select(t => t.EndCoord);
+            //var startPoints = getAllRoutes().Select(t => t.StartCoord);
+            //var endPoints = getAllRoutes().Select(t => t.EndCoord);
 
 
             
