@@ -40,6 +40,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -105,6 +106,7 @@
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\RouteStatModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AreaActivityRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Spedycja.Model.EntityModels;
 using Spedycja.Model.Repositories;
 using Spedycja.Model.Repositories.Interfaces;
+using Spedycja.Model.Models;
 
 namespace Spedycja.Model.Repositories
 {
@@ -19,6 +20,16 @@ namespace Spedycja.Model.Repositories
         public Route getRouteById(int id)
         {
             return Entities.Routes.Where(x => x.id == id).FirstOrDefault();
+        }
+
+        public List<RouteStatModel> GetRoutes()
+        {
+            var startPoints = getAllRoutes().Select(t => t.StartCoord);
+            var endPoints = getAllRoutes().Select(t => t.EndCoord);
+
+
+            
+            return new List<RouteStatModel>();
         }
     }
 }
