@@ -66,6 +66,11 @@
                     loadComplete: function (data) { },
                     loadError: function (xhr, status, error) { }
                 });
+            
+                var buttonRender = function (row, column, value) {
+                    return '<a href="/Order/OrderDetails/' + value + '">Więcej</a>';
+                }
+
                 // initialize jqxGrid
                 $("#jqxgrid").jqxGrid(
                 {
@@ -79,7 +84,7 @@
                     editable: true,
                     selectionmode: 'multiplecellsadvanced',
                     columns: [
-                        { text: 'ID', datafield: 'id', width: 30 },
+                        { text: 'Szczegóły', datafield: 'id', width: 80, cellsrenderer: buttonRender },
                         { text: 'Nazwa zlecenia', datafield: 'OrderName', width: 250 },
                         { text: 'Status', datafield: 'Status', width: 150 },
                         { text: 'Z', datafield: 'From', width: 120 },

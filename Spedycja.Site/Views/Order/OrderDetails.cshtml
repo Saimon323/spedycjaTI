@@ -1,0 +1,18 @@
+﻿@model Spedycja.Model.EntityModels.Order
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+
+tutaj szymon miekus wyświetlasz dane ordera co ma id równo @Model.id
+<br/>
+np: <br/>
+Customer: @Model.Customer.Name <br/>
+Status: @Model.StatusOrder.Status <br/>
+<br/>
+
+Tak ogólnie to sobie myślę, że dobrze było by zrobić usuwanie/edycję z tego miejsce, a nie w tym gridzie <br/>
+ale to taka tylko propozycja

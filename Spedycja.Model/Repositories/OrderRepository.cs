@@ -26,6 +26,12 @@ namespace Spedycja.Model.Repositories
         {
             return Entities.Orders.ToList();
         }
+
+        public Order getOrder(int id)
+        {
+            return Entities.Orders.FirstOrDefault(order => order.id == id);
+        }
+
         //public void AddNewOrder(OrderModel newOrder)
         //{
         //    Order order = new Order();

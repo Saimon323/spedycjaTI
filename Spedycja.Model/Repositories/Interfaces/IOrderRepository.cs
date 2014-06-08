@@ -12,5 +12,7 @@ namespace Spedycja.Model.Repositories.Interfaces
         int CreateNewOrder(Order order);
 
         List<Order> getAllOrders();
+        Order getOrder(int id);
+
     }
 }

@@ -135,6 +135,14 @@ namespace Spedycja.Site.Controllers
             return View();
         }
 
+        public ActionResult OrderDetails(int id)
+        {
+            IOrderRepository orderRepository = new OrderRepository();
+
+            var order = orderRepository.getOrder(id);
+            return View(order);
+        }
+
         public string OrderGridRead()
         {
             #region Deklaracje repozytoriow
