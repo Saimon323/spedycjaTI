@@ -9,7 +9,7 @@
     },   
   "content_scripts": [
   {
-    "matches":  ["http://www.transportuj.com.pl/index.php?page=ladunek&go=szczegoly*","http://www.transportuj.com.pl/index.php?page=ladunek&go=szczegoly*"],
+    "matches":  ["http://*/index.php?page=ladunek&go=szczegoly*"],
     "js":   ["jquery-1.11.0.min.js", "underscore.string.js","content.js"]
   },
   {
