@@ -8,6 +8,7 @@ using Spedycja.Model.Repositories;
 using Spedycja.Model.Repositories.Interfaces;
 using Spedycja.Model.Models;
 using System.Device.Location;
+using Spedycja.Geocoding;
 
 namespace Spedycja.Model.Repositories
 {
@@ -21,6 +22,27 @@ namespace Spedycja.Model.Repositories
         public Route getRouteById(int id)
         {
             return Entities.Routes.Where(x => x.id == id).FirstOrDefault();
+        }
+
+        public int CreateNewRouteByOrder(Route route)
+        {
+            if (route.StartPoint != null)
+            {
+                Tuple<double, double> from = Geocoding.GeocodingProvider.getLatLong(route.StartPoint);
+                route.StartLat = from.Item1;
+                route.StartLong = from.Item2;
+            }
+
+            if (route.EndPoint != null) { 
+                
+                Tuple<double, double> to = Geocoding.GeocodingProvider.getLatLong(route.EndPoint);
+                route.EndLat = to.Item1;
+                route.EndLong = to.Item2;
+            }
+
+            Entities.Routes.Add(route);
+            Entities.SaveChanges();
+            return route.id;
         }
 
         /// <summary>

@@ -28,6 +28,12 @@ namespace Spedycja.Model.Repositories
             
         }
 
+        public int getWorkerIdByLogin(string login)
+        {
+            Worker worker = Entities.Workers.Where(x => x.Login == login).FirstOrDefault();
+            return worker.id;
+        }
+
         
     }
 }

@@ -32,12 +32,12 @@ namespace Spedycja.Model.EntityModels
     
         public virtual Customer Customer { get; set; }
         public virtual Driver Driver { get; set; }
-        public virtual Load Load { get; set; }
         public virtual StatusOrder StatusOrder { get; set; }
         public virtual TypesVehicle TypesVehicle { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Worker Worker { get; set; }
         public virtual ICollection<StatusHistory> StatusHistories { get; set; }
         public virtual Route Route { get; set; }
+        public virtual Load Load { get; set; }
     }
 }

@@ -21,5 +21,12 @@ namespace Spedycja.Model.Repositories
         {
             return Entities.Customers.Where(t => t.id == id).FirstOrDefault();
         }
+
+        public int CreateNewCustomerByOrder(Customer customer)
+        {
+            Entities.Customers.Add(customer);
+            Entities.SaveChanges();
+            return customer.id;
+        }
     }
 }

@@ -21,8 +21,8 @@ namespace Spedycja.Model.EntityModels
     
         public int id { get; set; }
         public string Name { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public Nullable<int> Weight { get; set; }
+        public Nullable<double> Price { get; set; }
+        public Nullable<double> Weight { get; set; }
         public Nullable<int> IdType { get; set; }
     
         public virtual TypesFreight TypesFreight { get; set; }

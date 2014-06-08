@@ -11,5 +11,7 @@ namespace Spedycja.Model.Repositories.Interfaces
     {
         Worker getWorkerByLogin(string Login);
         bool LogIn(string Login, string Password);
+
+        int getWorkerIdByLogin(string login);
     }
 }

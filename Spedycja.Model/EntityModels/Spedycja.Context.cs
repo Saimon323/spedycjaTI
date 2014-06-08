@@ -28,7 +28,6 @@ namespace Spedycja.Model.EntityModels
         public virtual DbSet<AreaActivity> AreaActivities { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
-        public virtual DbSet<Load> Loads { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<StatusOrder> StatusOrders { get; set; }
         public virtual DbSet<TypesFreight> TypesFreights { get; set; }
@@ -37,5 +36,6 @@ namespace Spedycja.Model.EntityModels
         public virtual DbSet<Worker> Workers { get; set; }
         public virtual DbSet<StatusHistory> StatusHistories { get; set; }
         public virtual DbSet<Route> Routes { get; set; }
+        public virtual DbSet<Load> Loads { get; set; }
     }
 }

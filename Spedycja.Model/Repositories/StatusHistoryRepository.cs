@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Spedycja.Model.EntityModels;
-using Spedycja.Model.Repositories;
 using Spedycja.Model.Repositories.Interfaces;
+using Spedycja.Model.EntityModels;
 
 namespace Spedycja.Model.Repositories
 {
-    public class LoadRepository : BaseRepository, ILoadRepository
+    public class StatusHistoryRepository : BaseRepository, IStatusHistoryRepository
     {
-        public int CreateLoadByOrder(Load load)
+        public void AddStatusHistory(StatusHistory statusHistory)
         {
-            Entities.Loads.Add(load);
+            Entities.StatusHistories.Add(statusHistory);
             Entities.SaveChanges();
-            return load.id;
         }
     }
 }

@@ -116,10 +116,12 @@
     <Compile Include="Repositories\Interfaces\ILoadRepository.cs" />
     <Compile Include="Repositories\Interfaces\IOrderRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRouteRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IStatusHistoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\IStatusOrderRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITypesFreightRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITypesVehicleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IWorkerRepository.cs" />
+    <Compile Include="Repositories\StatusHistoryRepository.cs" />
     <Compile Include="Repositories\LoadRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs" />
@@ -128,7 +130,12 @@
     <Compile Include="Repositories\TypesVehicleRepository.cs" />
     <Compile Include="Repositories\WorkerRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Spedycja.Geocoding\Spedycja.Geocoding.csproj">
+      <Project>{f3bfddfe-37b4-4aa3-a8d6-b7c11e281f82}</Project>
+      <Name>Spedycja.Geocoding</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="EntityModels\Spedycja.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

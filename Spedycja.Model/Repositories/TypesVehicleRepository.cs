@@ -20,5 +20,12 @@ namespace Spedycja.Model.Repositories
         {
             return Entities.TypesVehicles.ToList();
         }
+
+        public int CreateTypeVehicleByOrder(TypesVehicle typeVehicle)
+        {
+            Entities.TypesVehicles.Add(typeVehicle);
+            Entities.SaveChanges();
+            return typeVehicle.id;
+        }
     }
 }

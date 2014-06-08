@@ -15,5 +15,7 @@ namespace Spedycja.Model.Repositories.Interfaces
         IQueryable<Customer> GetAllCustomers();
 
         Customer GetCustomerById(int id);
+
+        int CreateNewCustomerByOrder(Customer customer);
     }
 }

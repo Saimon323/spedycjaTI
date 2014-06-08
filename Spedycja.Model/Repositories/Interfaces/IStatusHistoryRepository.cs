@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Spedycja.Model.EntityModels;
+using System.Data.Spatial;
 
 namespace Spedycja.Model.Repositories.Interfaces
 {
-    public interface ITypesVehicleRepository
+    public interface IStatusHistoryRepository
     {
-        int CreateTypeVehicleByOrder(TypesVehicle typeVehicle);
+        void AddStatusHistory(StatusHistory statusHistory);
     }
 }

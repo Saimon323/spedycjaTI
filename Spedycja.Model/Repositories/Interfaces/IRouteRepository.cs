@@ -11,5 +11,7 @@ namespace Spedycja.Model.Repositories.Interfaces
     {
         List<Route> getAllRoutes();
         Route getRouteById(int id);
+
+        int CreateNewRouteByOrder(Route route);
     }
 }

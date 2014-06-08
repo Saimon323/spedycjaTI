@@ -198,6 +198,7 @@
     <Compile Include="Helpers\OpenStreetMapsHelperUniversal.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\POIModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

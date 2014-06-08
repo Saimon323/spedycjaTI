@@ -9,5 +9,6 @@ namespace Spedycja.Model.Repositories.Interfaces
 {
     public interface IOrderRepository
     {
+        int CreateNewOrder(Order order);
     }
 }

@@ -13,12 +13,12 @@ namespace Spedycja.Test
         static void Main(string[] args)
         {
             
-            CustomerRepository customerRepo = new CustomerRepository();
-            IQueryable<Customer> allCustomersList = customerRepo.GetAllCustomers();
-            foreach (var x in allCustomersList)
-            {
-                Console.WriteLine(x.Name + " " + x.Surname + " " + x.PhoneNumber);
-            }
+            //CustomerRepository customerRepo = new CustomerRepository();
+            //IQueryable<Customer> allCustomersList = customerRepo.GetAllCustomers();
+            //foreach (var x in allCustomersList)
+            //{
+            //    Console.WriteLine(x.Name + " " + x.Surname + " " + x.PhoneNumber);
+            //}
 
             #region geocoding
             /*GoogleGeocoder geocoder = new GoogleGeocoder();
@@ -34,8 +34,9 @@ namespace Spedycja.Test
             //    var cord = xxx.Coordinates;
             //}
 
-            //Tuple<double, double> result = Geocoding.GeocodingProvider.getLatLong("Berlin");
-            //Tuple<double, double> result2 = Geocoding.GeocodingProvider.getLatLong("warszawa");
+            Tuple<double, double> result = Geocoding.GeocodingProvider.getLatLong("Berlin");
+            Tuple<double, double> result2 = Geocoding.GeocodingProvider.getLatLong("warszawa");
+            
             //var country = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.Country]).First();
 
 

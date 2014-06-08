@@ -9,33 +9,33 @@
 
 <h3>Krok 2 - wypełnij dane zleceniodawcy i firmy transportowej</h3>
 
-@using (Html.BeginForm("NewOrder", "Order", FormMethod.Post, null))
+@*@using (Html.BeginForm("NewOrder", "Order", FormMethod.Post, null))
 {
     @Html.EditorForModel()
     <input type="submit" value="Zapisz" />
-}
+}*@
 
 
-<form action="/Order/OrderList" method="POST">
+<form action="/Order/NewOrderSuccess" method="POST">
 
     <fieldset name="Customer">
-        
+
         <h4>Dane Klienta</h4>
 
         Nazwa firmy<input type="text" id="oName" /><br />
 
         Imię<input type="text" id="oType" /><br />
-        
+
         Nazwisko<input type="text" id="oType" /><br />
-        
+
         Adres<input type="text" id="oType" /><br />
 
         Telefon <input type="number" id="oWeight" />
 
     </fieldset>
-    
+
     <fieldset name="Driver">
-        
+
         <h4>Dane Kierowcy</h4>
 
         Nazwa firmy<input type="text" id="oName" /><br />
@@ -47,21 +47,21 @@
         Adres<input type="text" id="oType" /><br />
 
         Telefon <input type="number" id="oWeight" />
-        
+
         Obszar działania <select id="lActivityArea">
-                             
-                             <option selected="selected" value=""></option>
 
-                             <option value="0">Polska</option>
+            <option selected="selected" value=""></option>
 
-                             <option value="1">Europa Wschodnia</option>
+            <option value="0">Polska</option>
 
-                             <option value="2">Śląsk</option>
+            <option value="1">Europa Wschodnia</option>
 
-                         </select><br />        
+            <option value="2">Śląsk</option>
+
+        </select><br />
 
     </fieldset>
-    
+
     <p><input type="submit" value="Zapisz" /> </p>
 
 </form>

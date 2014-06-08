@@ -51,8 +51,8 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Price" Type="decimal" Precision="19" Scale="4" />
-          <Property Name="Weight" Type="int" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Weight" Type="float" />
           <Property Name="IdType" Type="int" />
         </EntityType>
         <EntityType Name="Orders">
@@ -386,18 +386,6 @@
           <NavigationProperty Name="AreaActivity" Relationship="Self.FK_Kierowcy_ObszarDzialan" FromRole="Drivers" ToRole="AreaActivities" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Kierowcy" FromRole="Drivers" ToRole="Orders" />
         </EntityType>
-        <EntityType Name="Load">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Weight" Type="Int32" />
-          <Property Name="IdType" Type="Int32" />
-          <NavigationProperty Name="TypesFreight" Relationship="Self.FK_Ladunki_Typ_Ladunek" FromRole="Loads" ToRole="TypesFreights" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Zlecenia_Ladunki" FromRole="Loads" ToRole="Orders" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="id" />
@@ -411,7 +399,6 @@
           <Property Name="idDriver" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Zlecenia_Klienci" FromRole="Orders" ToRole="Customers" />
           <NavigationProperty Name="Driver" Relationship="Self.FK_Zlecenia_Kierowcy" FromRole="Orders" ToRole="Drivers" />
-          <NavigationProperty Name="Load" Relationship="Self.FK_Zlecenia_Ladunki" FromRole="Orders" ToRole="Loads" />
           <NavigationProperty Name="StatusOrder" Relationship="Self.FK_Zlecenia_Status_Zlecenie" FromRole="Orders" ToRole="StatusOrders" />
           <NavigationProperty Name="TypesVehicle" Relationship="Self.FK_Zlecenia_Typ_Pojazd" FromRole="Orders" ToRole="TypesVehicles" />
           <Property Name="idRoutes" Type="Int32" />
@@ -420,6 +407,7 @@
           <NavigationProperty Name="Worker" Relationship="SpedycjaModel.FK_Zlecenia_Pracownicy" FromRole="Order" ToRole="Worker" />
           <NavigationProperty Name="StatusHistories" Relationship="SpedycjaModel.FK_StatusHistory_Orders" FromRole="Order" ToRole="StatusHistory" />
           <NavigationProperty Name="Route" Relationship="SpedycjaModel.FK_Orders_Routes" FromRole="Order" ToRole="Route" />
+          <NavigationProperty Name="Load" Relationship="SpedycjaModel.FK_Zlecenia_Ladunki" FromRole="Order" ToRole="Load" />
         </EntityType>
         <EntityType Name="StatusOrder">
           <Key>
@@ -436,7 +424,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Loads" Relationship="Self.FK_Ladunki_Typ_Ladunek" FromRole="TypesFreights" ToRole="Loads" />
+          <NavigationProperty Name="Loads" Relationship="SpedycjaModel.FK_Ladunki_Typ_Ladunek" FromRole="TypesFreight" ToRole="Load" />
         </EntityType>
         <EntityType Name="TypesVehicle">
           <Key>
@@ -482,30 +470,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ladunki_Typ_Ladunek">
-          <End Role="TypesFreights" Type="Self.TypesFreight" Multiplicity="0..1" />
-          <End Role="Loads" Type="Self.Load" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TypesFreights">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Loads">
-              <PropertyRef Name="IdType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Zlecenia_Ladunki">
-          <End Role="Loads" Type="Self.Load" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Loads">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="idLoad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Zlecenia_Status_Zlecenie">
           <End Role="StatusOrders" Type="Self.StatusOrder" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
@@ -534,7 +498,6 @@
           <EntitySet Name="AreaActivities" EntityType="Self.AreaActivity" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Drivers" EntityType="Self.Driver" />
-          <EntitySet Name="Loads" EntityType="Self.Load" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="StatusOrders" EntityType="Self.StatusOrder" />
           <EntitySet Name="TypesFreights" EntityType="Self.TypesFreight" />
@@ -549,14 +512,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Zlecenia_Kierowcy" Association="Self.FK_Zlecenia_Kierowcy">
             <End Role="Drivers" EntitySet="Drivers" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ladunki_Typ_Ladunek" Association="Self.FK_Ladunki_Typ_Ladunek">
-            <End Role="TypesFreights" EntitySet="TypesFreights" />
-            <End Role="Loads" EntitySet="Loads" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Zlecenia_Ladunki" Association="Self.FK_Zlecenia_Ladunki">
-            <End Role="Loads" EntitySet="Loads" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Zlecenia_Status_Zlecenie" Association="Self.FK_Zlecenia_Status_Zlecenie">
@@ -593,6 +548,15 @@
           <EntitySet Name="Routes" EntityType="SpedycjaModel.Route" />
           <AssociationSet Name="FK_Orders_Routes" Association="SpedycjaModel.FK_Orders_Routes">
             <End Role="Route" EntitySet="Routes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Loads" EntityType="SpedycjaModel.Load" />
+          <AssociationSet Name="FK_Ladunki_Typ_Ladunek" Association="SpedycjaModel.FK_Ladunki_Typ_Ladunek">
+            <End Role="TypesFreight" EntitySet="TypesFreights" />
+            <End Role="Load" EntitySet="Loads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zlecenia_Ladunki" Association="SpedycjaModel.FK_Zlecenia_Ladunki">
+            <End Role="Load" EntitySet="Loads" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           </EntityContainer>
@@ -719,6 +683,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Load">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="IdType" Type="Int32" />
+          <NavigationProperty Name="TypesFreight" Relationship="SpedycjaModel.FK_Ladunki_Typ_Ladunek" FromRole="Load" ToRole="TypesFreight" />
+          <NavigationProperty Name="Orders" Relationship="SpedycjaModel.FK_Zlecenia_Ladunki" FromRole="Load" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Ladunki_Typ_Ladunek">
+          <End Type="SpedycjaModel.TypesFreight" Role="TypesFreight" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Load" Role="Load" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesFreight">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Load">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zlecenia_Ladunki">
+          <End Type="SpedycjaModel.Load" Role="Load" Multiplicity="0..1" />
+          <End Type="SpedycjaModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Load">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="idLoad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -755,17 +755,6 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Firm" ColumnName="Firm" />
                 <ScalarProperty Name="IdAreasActivity" ColumnName="IdAreasActivity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Loads">
-            <EntityTypeMapping TypeName="SpedycjaModel.Load">
-              <MappingFragment StoreEntitySet="Loads">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="IdType" ColumnName="IdType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -850,6 +839,17 @@
                 <ScalarProperty Name="StartLat" ColumnName="StartLat" />
                 <ScalarProperty Name="EndPoint" ColumnName="EndPoint" />
                 <ScalarProperty Name="StartPoint" ColumnName="StartPoint" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loads">
+            <EntityTypeMapping TypeName="SpedycjaModel.Load">
+              <MappingFragment StoreEntitySet="Loads">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
