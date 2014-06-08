@@ -8,6 +8,7 @@ using Spedycja.Site.Models;
 using Spedycja.Model.EntityModels;
 using Spedycja.Model.Repositories.Interfaces;
 using Spedycja.Model.Repositories;
+using Newtonsoft.Json;
 
 namespace Spedycja.Site.Controllers
 {
@@ -45,8 +46,8 @@ namespace Spedycja.Site.Controllers
             #endregion
 
             #region ID nowego towaru
-            int loadCreatedId = loadRepository.CreateLoadByOrder(new Load 
-            { 
+            int loadCreatedId = loadRepository.CreateLoadByOrder(new Load
+            {
                 Name = model.load.Name,
                 Price = model.load.Price,
                 Weight = model.load.Weight,
@@ -81,16 +82,17 @@ namespace Spedycja.Site.Controllers
             });
             #endregion
 
-            #region ID nowej trasy 
+            #region ID nowej trasy
             int routeCreatedId = routeRepository.CreateNewRouteByOrder(new Route
             {
                 StartPoint = model.route.StartPoint,
                 EndPoint = model.route.EndPoint
             });
             #endregion
-            
+
             DateTime createdAt = DateTime.Now;
 
+            #region Nowe zlecenie
             Order order = new Order
             {
                 idLoad = loadCreatedId,
@@ -110,9 +112,9 @@ namespace Spedycja.Site.Controllers
                 ChangeDate = DateTime.Now,
                 idOrder = orderCreatedId
             });
+            #endregion
 
-            
-            return View();
+            return RedirectToAction("OrderList", "Order");
         }
 
         //[HttpPost]
@@ -129,7 +131,62 @@ namespace Spedycja.Site.Controllers
 
         public ActionResult OrderList()
         {
+
             return View();
+        }
+
+        public string OrderGridRead()
+        {
+            #region Deklaracje repozytoriow
+            IOrderRepository orderRepository = new OrderRepository();
+            ILoadRepository loadRepository = new LoadRepository();
+            IRouteRepository routeRepository = new RouteRepository();
+            IStatusOrderRepository statusOrderRepository = new StatusOrderRepository();
+            ICustomerRepository customerRepository = new CustomerRepository();
+            #endregion
+
+            #region Wypelnianie OrderListModelu
+            string orderName = "";
+            string status = "";
+            string from = "";
+            string to = "";
+            string customerInformation = "";
+            #endregion
+
+            List<OrderListModel> ordersListResult = new List<OrderListModel>();
+            List<Order> orders = orderRepository.getAllOrders();
+            foreach (var order in orders)
+            {
+                if(order.idLoad.HasValue)
+                    orderName = loadRepository.getLoadNameById(order.idLoad.GetValueOrDefault());
+                
+                if(order.idStatus.HasValue)
+                    status = statusOrderRepository.getStatusOrderNameById(order.idStatus.GetValueOrDefault());
+
+                if (order.idRoutes.HasValue) {
+                    Tuple<string, string> route = routeRepository.getRouteStartEndById(order.idRoutes.GetValueOrDefault());
+                    from = route.Item1;
+                    to = route.Item2;
+                }
+
+                if(order.idCustomer.HasValue)
+                    customerInformation = customerRepository.getCustomerInformationById(order.idCustomer.GetValueOrDefault());
+
+                OrderListModel singleOrder = new OrderListModel
+                {
+                    id = order.id,
+                    OrderName = orderName,
+                    Status = status,
+                    From = from,
+                    To = to,
+                    Customer = customerInformation
+                };
+
+                ordersListResult.Add(singleOrder);
+            }
+
+            return JsonConvert.SerializeObject(ordersListResult);
+
         }
 
     }

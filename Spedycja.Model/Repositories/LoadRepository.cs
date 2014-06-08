@@ -17,5 +17,10 @@ namespace Spedycja.Model.Repositories
             Entities.SaveChanges();
             return load.id;
         }
+
+        public string getLoadNameById(int id)
+        {
+            return Entities.Loads.Where(x => x.id == id).FirstOrDefault().Name;
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace Spedycja.Model.Repositories.Interfaces
         Route getRouteById(int id);
 
         int CreateNewRouteByOrder(Route route);
+
+        Tuple<string, string> getRouteStartEndById(int id);
     }
 }

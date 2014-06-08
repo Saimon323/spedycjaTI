@@ -17,5 +17,7 @@ namespace Spedycja.Model.Repositories.Interfaces
         Customer GetCustomerById(int id);
 
         int CreateNewCustomerByOrder(Customer customer);
+
+        string getCustomerInformationById(int id);
     }
 }

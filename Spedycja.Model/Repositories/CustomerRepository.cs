@@ -28,5 +28,11 @@ namespace Spedycja.Model.Repositories
             Entities.SaveChanges();
             return customer.id;
         }
+
+        public string getCustomerInformationById(int id)
+        {
+            Customer customerInformation = Entities.Customers.Where(x=> x.id == id).FirstOrDefault();
+            return customerInformation.Name + " " + customerInformation.Surname;
+        }
     }
 }

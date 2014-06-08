@@ -3,4 +3,96 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>OrderList</h2>
+@Styles.Render("~/jqwidgets/styles/jqx.base.css")
+@Scripts.Render("~/jqwidgets/jqxcore.js")
+@Scripts.Render("~/jqwidgets/jqxdata.js")
+@Scripts.Render("~/jqwidgets/jqxbuttons.js")
+@Scripts.Render("~/jqwidgets/jqxscrollbar.js")
+@Scripts.Render("~/jqwidgets/jqxmenu.js")
+@Scripts.Render("~/jqwidgets/jqxcheckbox.js")
+@Scripts.Render("~/jqwidgets/jqxlistbox.js")
+@Scripts.Render("~/jqwidgets/jqxdropdownlist.js")
+@Scripts.Render("~/jqwidgets/jqxgrid.js")
+@Scripts.Render("~/jqwidgets/jqxgrid.sort.js")
+@Scripts.Render("~/jqwidgets/jqxgrid.pager.js")
+@Scripts.Render("~/jqwidgets/jqxgrid.selection.js")
+@Scripts.Render("~/jqwidgets/jqxgrid.edit.js")
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+
+        $.ajax({
+            type: 'POST',
+            url: '/Order/OrderGridRead',
+            cache: false,
+            success: function (data) {
+                CreateGrid(data);
+            }
+        });
+
+        // prepare the data
+
+    });
+
+    function CreateGrid(data) {
+        var url = "../../jqwidgets/sampledata/beverages.txt";
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'id', type: 'int' },
+                { name: 'OrderName', type: 'string' },
+                { name: 'Status', type: 'string' },
+                { name: 'From', type: 'string' },
+                { name: 'To', type: 'string' },
+                { name: 'Customer', type: 'string' }
+            ],
+            id: 'id',
+            localdata: data
+        };
+                var cellsrenderer = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+                    if (value < 20) {
+                        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #ff0000;">' + value + '</span>';
+                    }
+                    else {
+                        return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #008000;">' + value + '</span>';
+                    }
+                }
+                var dataAdapter = new $.jqx.dataAdapter(source, {
+                    downloadComplete: function (data, status, xhr) { },
+                    loadComplete: function (data) { },
+                    loadError: function (xhr, status, error) { }
+                });
+                // initialize jqxGrid
+                $("#jqxgrid").jqxGrid(
+                {
+                    width: 1000,
+                    source: dataAdapter,
+                    pageable: true,
+                    autoheight: true,
+                    sortable: true,
+                    altrows: true,
+                    enabletooltips: true,
+                    editable: true,
+                    selectionmode: 'multiplecellsadvanced',
+                    columns: [
+                        { text: 'ID', datafield: 'id', width: 30 },
+                        { text: 'Nazwa zlecenia', datafield: 'OrderName', width: 250 },
+                        { text: 'Status', datafield: 'Status', width: 150 },
+                        { text: 'Z', datafield: 'From', width: 120 },
+                        { text: 'Do', datafield: 'To', minwidth: 120 },
+                        { text: 'Zleceniodawca', datafield: 'Customer', width: 250 },
+                    ]
+                });
+    }
+</script>
+
+
+<div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;">
+    <div id="jqxgrid">
+    </div>
+</div>
+

@@ -10,5 +10,7 @@ namespace Spedycja.Model.Repositories.Interfaces
     public interface ILoadRepository
     {
         int CreateLoadByOrder(Load load);
+
+        string getLoadNameById(int id);
     }
 }

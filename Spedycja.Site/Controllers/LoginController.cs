@@ -36,7 +36,7 @@ namespace Spedycja.Site.Controllers
             if (cookie != null)
             {
 
-                return RedirectToAction("Index", "Spedycja");
+                return RedirectToAction("OrderList", "Order");
             }
             return View();
         }
@@ -55,7 +55,7 @@ namespace Spedycja.Site.Controllers
                 string cookieValue = data.Login.ToString();
                 var cookie = new HttpCookie("LogOn", cookieValue);
                 Response.AppendCookie(cookie);
-                return RedirectToAction("Index", "Spedycja");
+                return RedirectToAction("OrderList", "Order");
             }
             else 
                 return View();

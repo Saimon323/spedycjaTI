@@ -19,7 +19,76 @@
     @Scripts.Render("~/jqwidgets/jqxgrid.selection.js")
     @Scripts.Render("~/jqwidgets/jqxgrid.edit.js")
 
-    <script type="text/javascript">
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url = "../../jqwidgets/sampledata/beverages.txt";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'name', type: 'string' },
+                { name: 'type', type: 'string' },
+                { name: 'calories', type: 'int' },
+                { name: 'totalfat', type: 'string' },
+                { name: 'protein', type: 'string' }
+            ],
+            id: 'id',
+            localdata: [{
+                "id": "1",
+                "name": "Adam Monroe",
+                "type": "Chocolate Beverage",
+                "calories": "370",
+                "totalfat": "16g",
+                "protein": "14g"
+            }]
+        };
+        var cellsrenderer = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+            if (value < 20) {
+                return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #ff0000;">' + value + '</span>';
+            }
+            else {
+                return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #008000;">' + value + '</span>';
+            }
+        }
+        var dataAdapter = new $.jqx.dataAdapter(source, {
+            downloadComplete: function (data, status, xhr) { },
+            loadComplete: function (data) { },
+            loadError: function (xhr, status, error) { }
+        });
+        // initialize jqxGrid
+        $("#jqxgrid").jqxGrid(
+        {
+            width: 1000,
+            source: dataAdapter,
+            pageable: true,
+            autoheight: true,
+            sortable: true,
+            altrows: true,
+            enabletooltips: true,
+            editable: true,
+            selectionmode: 'multiplecellsadvanced',
+            columns: [
+              { text: 'Name', datafield: 'name', width: 250 },
+                  { text: 'Beverage Type', datafield: 'type', width: 250 },
+                  { text: 'Calories', datafield: 'calories', width: 180 },
+                  { text: 'Total Fat', datafield: 'totalfat', width: 120 },
+                  { text: 'Protein', datafield: 'protein', minwidth: 120 }
+            ]
+        });
+    });
+</script>
+
+
+<div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;">
+    <div id="jqxgrid">
+    </div>
+</div>
+
+
+
+
+    @*<script type="text/javascript">
         $(document).ready(function () {
             var url = "../../jqwidgets/sampledata/products.xml";
             // prepare the data 
@@ -88,4 +157,4 @@
     <div id='jqxWidget' style="font-size: 13px; font-family: Verdana; float: left;">
         <div id="jqxgrid">
         </div>
-    </div>
+    </div>*@

@@ -45,6 +45,13 @@ namespace Spedycja.Model.Repositories
             return route.id;
         }
 
+        public Tuple<string, string> getRouteStartEndById(int id)
+        {
+            Route route = Entities.Routes.Where(x => x.id == id).FirstOrDefault();
+            Tuple<string, string> routeResult = new Tuple<string, string>(route.StartPoint,route.EndPoint);
+            return routeResult;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -175,5 +182,7 @@ namespace Spedycja.Model.Repositories
             public string EndName { get; set; }
             public string Text { get; set; }
         }
+
+
     }
 }

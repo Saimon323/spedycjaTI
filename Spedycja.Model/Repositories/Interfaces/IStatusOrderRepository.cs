@@ -9,5 +9,6 @@ namespace Spedycja.Model.Repositories.Interfaces
 {
     public interface IStatusOrderRepository
     {
+        string getStatusOrderNameById(int id);
     }
 }
