@@ -33,8 +33,9 @@ namespace Spedycja.Model.Repositories
                 route.StartLong = from.Item2;
             }
 
-            if (route.EndPoint != null) { 
-                
+            if (route.EndPoint != null)
+            {
+
                 Tuple<double, double> to = Geocoding.GeocodingProvider.getLatLong(route.EndPoint);
                 route.EndLat = to.Item1;
                 route.EndLong = to.Item2;
@@ -48,7 +49,7 @@ namespace Spedycja.Model.Repositories
         public Tuple<string, string> getRouteStartEndById(int id)
         {
             Route route = Entities.Routes.Where(x => x.id == id).FirstOrDefault();
-            Tuple<string, string> routeResult = new Tuple<string, string>(route.StartPoint,route.EndPoint);
+            Tuple<string, string> routeResult = new Tuple<string, string>(route.StartPoint, route.EndPoint);
             return routeResult;
         }
 
@@ -59,118 +60,57 @@ namespace Spedycja.Model.Repositories
         /// <returns></returns>
         public List<RouteStatModel> GetRoutes(double distance)
         {
-            //var startPoints = getAllRoutes().Select(t => t.StartCoord);
-            //var endPoints = getAllRoutes().Select(t => t.EndCoord);
-
             var allPointToPoints = new List<PointToPoint>();
 
-            var startPoints = new List<GeoCoordinate>();
-            var endPoints = new List<GeoCoordinate>();
             foreach (var route in getAllRoutes().ToList())
             {
-                var startPoint = new GeoCoordinate(route.StartLat.Value, route.StartLong.Value);
-                var endPoint = new GeoCoordinate(route.EndLat.Value, route.EndLong.Value);
-                startPoints.Add(startPoint);
-                endPoints.Add(endPoint);
-
-                string startName = route.StartPoint.Split(';')[0] + ", " + route.StartPoint.Split(';')[1];
-                string endName = route.EndPoint.Split(';')[0] + ", " + route.EndPoint.Split(';')[1];
-
-                allPointToPoints.Add(new PointToPoint() 
-                { 
-                    StartPoint = startPoint, 
-                    EndPoint = endPoint,
-                    StartName = startName,
-                    EndName = endName,
-                    Text = "z: " + startName + " do " + endName
+                allPointToPoints.Add(new PointToPoint()
+                {
+                    StartPoint = new GeoCoordinate(route.StartLat.Value, route.StartLong.Value),
+                    EndPoint = new GeoCoordinate(route.EndLat.Value, route.EndLong.Value),
+                    StartName = route.StartPoint,
+                    EndName = route.EndPoint,
+                    Text = "z: " + route.StartPoint + " do " + route.EndPoint
                 });
             }
 
 
-            var startPointsGroups = new List<List<GeoCoordinate>>();
-            var endPointsGroups = new List<List<GeoCoordinate>>();
-
-            var groupedPoints = new List<GeoCoordinate>();
-            foreach (var point in startPoints)
-            {// grupowanie punktów startowych
-                if (!groupedPoints.Contains(point))
-                {
-                    var newGroup = new List<GeoCoordinate>();
-                    newGroup.Add(point);
-                    groupedPoints.Add(point);
-                    for (int i = startPoints.IndexOf(point) + 1; i < startPoints.Count; i++)
-                    {
-                        if (startPoints[i].GetDistanceTo(point) <= distance)
-                        {
-                            newGroup.Add(startPoints[i]);
-                            groupedPoints.Add(startPoints[i]);
-                        }
-                    }
-
-                    startPointsGroups.Add(newGroup);
-                }
-            }
-
-            groupedPoints.Clear();
-            foreach (var point in endPoints)
-            {// grupowanie punktów końcowych
-                if (!groupedPoints.Contains(point))
-                {
-                    var newGroup = new List<GeoCoordinate>();
-                    newGroup.Add(point);
-                    groupedPoints.Add(point);
-                    for (int i = endPoints.IndexOf(point) + 1; i < endPoints.Count; i++)
-                    {
-                        if (endPoints[i].GetDistanceTo(point) <= distance)
-                        {
-                            newGroup.Add(endPoints[i]);
-                            groupedPoints.Add(endPoints[i]);
-                        }
-                    }
-
-                    endPointsGroups.Add(newGroup);
-                }
-            }
-
-            //startPointsGroups tutaj są już grupy punktów początkowych
-            //endPointsGroups tutaj są już grupy punktów końcowych
-            // teraz trzeba zliczyć jak czesto jest z jednej grupy do drugiej
-            //Pierwszy punkt w grupie to punkt tytułowy grupy. Np. grupa zawieta punktu A,B,C to cała grupa ma identyfikator A.
-            var counter = new Dictionary<PointToPoint, int>();
-            foreach (var ptp in allPointToPoints)
+            var unGrouped = allPointToPoints.ToList();
+            var Groups = new List<List<PointToPoint>>();
+            foreach (var route in allPointToPoints)
             {
-                var startGroup = startPointsGroups.Where(t => t.Contains(ptp.StartPoint)).FirstOrDefault();
-                var endGroup = endPointsGroups.Where(t => t.Contains(ptp.EndPoint)).FirstOrDefault();
+                if (unGrouped.Contains(route))
+                {
+                    var NewGroup = unGrouped.Where(t => t.StartPoint.GetDistanceTo(route.StartPoint) <= distance
+                                                    && t.EndPoint.GetDistanceTo(route.EndPoint) <= distance).ToList();
 
-                var key = new PointToPoint() { StartPoint = startGroup.First(), EndPoint = endGroup.First() };
-                if (counter.ContainsKey(key))
-                {
-                    counter[key]++;
-                }
-                else
-                {
-                    counter[key] = 1;
+                    foreach (var ptp in NewGroup)
+                    {
+                        unGrouped.Remove(ptp);
+                    }
+
+                    Groups.Add(NewGroup);
                 }
             }
-
 
             var result = new List<RouteStatModel>();
-            foreach (var route in counter)
+            foreach (var route in Groups)
             {
                 result.Add(new RouteStatModel()
-                    {
-                        Rate = route.Value,
-                        StartLat = route.Key.StartPoint.Latitude,
-                        StartLong = route.Key.StartPoint.Longitude,
-                        EndLat = route.Key.StartPoint.Latitude,
-                        EndLong = route.Key.StartPoint.Longitude,
-                        StartName = route.Key.StartName,
-                        EndName = route.Key.EndName,
-                        Text = route.Key.Text
-                    });
+                {
+                    Rate = route.Count,
+                    StartLat = route.First().StartPoint.Latitude,
+                    StartLong = route.First().StartPoint.Longitude,
+                    EndLat = route.First().StartPoint.Latitude,
+                    EndLong = route.First().StartPoint.Longitude,
+                    StartName = route.First().StartName,
+                    EndName = route.First().EndName,
+                    Text = route.First().Text
+                });
             }
 
             return result;
+
         }
 
         private class PointToPoint
