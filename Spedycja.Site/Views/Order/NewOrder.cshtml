@@ -1,64 +1,17 @@
-﻿@*@model Spedycja.Site.Models.OrderModel
+﻿@model Spedycja.Site.Models.OrderModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Stwórz zamówienie";
 }
 
 @using (Html.BeginForm())
 {
-    <div>
-        <fieldset>
-            <legend>Logowanie</legend>
-            @Html.LabelFor(l => l.napis, "fdsfsfs")
-            @Html.TextBoxFor(l => l.napis)
-            @Html.ValidationMessageFor(l => l.napis)
+    <div id="formArea">
+        <div class="orderLeft">
+            <h3>Dane Ładunku</h3>
 
-
-            <input type="submit" value="Zaloguj" />
-        </fieldset>
-    </div>
-
-}*@
-
-@*@model Spedycja.Site.Models.LoginModel
-
-@{
-    ViewBag.Title = "Login";
-}
-
-@using (Html.BeginForm())
-{
-    <div>
-        <fieldset>
-            <legend>Logowanie</legend>
-            @Html.LabelFor(l => l.Login, "Login")
-            @Html.TextBoxFor(l => l.Login)
-            @Html.ValidationMessageFor(l => l.Login)
-
-            @Html.LabelFor(l => l.Password, "Hasło")
-            @Html.PasswordFor(l => l.Password)
-            @Html.ValidationMessageFor(l => l.Password)
-            <input type="submit" value="Zaloguj" />
-        </fieldset>
-    </div>
-
-}*@
-
-
-@model Spedycja.Site.Models.OrderModel
-
-@{
-    ViewBag.Title = "NewOrder";
-}
-
-@using (Html.BeginForm())
-{
-    <div>
-        <fieldset>
-            <legend>Rejestracja</legend>
-            <h2>Dane Ładunku</h2>
-
-
+            @Html.ValidationSummary(true, "Dane zlecenia są niepoprawne")
+                      
             @Html.LabelFor(l => l.load.Name, "Nazwa ładunku")
             @Html.TextBoxFor(l => l.load.Name)
             @Html.ValidationMessageFor(l => l.load.Name)
@@ -67,19 +20,19 @@
             @Html.TextBoxFor(l => l.load.LoadType)
             @Html.ValidationMessageFor(l => l.load.LoadType)
 
-            @Html.LabelFor(l => l.load.Weight, "Waga")
+            @Html.LabelFor(l => l.load.Weight, "Waga (kg)")
             @Html.TextBoxFor(l => l.load.Weight)
             @Html.ValidationMessageFor(l => l.load.Weight)
 
-            @Html.LabelFor(l => l.load, "Cena")
+            @Html.LabelFor(l => l.load, "Cena (PLN)")
             @Html.TextBoxFor(l => l.load.Price)
             @Html.ValidationMessageFor(l => l.load.Price)
 
             @Html.LabelFor(l => l.vehicle.Name, "Typ pojazdu")
             @Html.TextBoxFor(l => l.vehicle.Name)
             @Html.ValidationMessageFor(l => l.vehicle.Name)
-
-            <h2>Trasa</h2>
+       
+            <h3>Trasa</h3>
 
             @Html.LabelFor(l => l.route.StartPoint, "Z")
             @Html.TextBoxFor(l => l.route.StartPoint)
@@ -88,8 +41,10 @@
             @Html.LabelFor(l => l.route.EndPoint, "Do")
             @Html.TextBoxFor(l => l.route.EndPoint)
             @Html.ValidationMessageFor(l => l.route.EndPoint)
+        </div>
 
-            <h2>Dane klienta</h2>
+        <div class="orderRight">
+            <h3>Dane klienta</h3>
 
             @Html.LabelFor(l => l.customer.Name, "Imię")
             @Html.TextBoxFor(l => l.customer.Name)
@@ -110,11 +65,10 @@
             @Html.LabelFor(l => l.customer.Firm, "Firma")
             @Html.TextBoxFor(l => l.customer.Firm)
             @Html.ValidationMessageFor(l => l.customer.Firm)
-
-
-
-            <input type="submit" value="Zarejestruj" />
-        </fieldset>
+        
+            <br />
+            <input type="submit" value="Zapisz zlecenie" class="addNewOrderButton" />
+        </div>
     </div>
 }
 

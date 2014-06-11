@@ -195,8 +195,9 @@ ul#menu {
 
         ul#menu li a {
             background: none;
-            color: #999;
+            color: #0094ff;
             text-decoration: none;
+            font-weight: bold;
         }
 
         ul#menu li a:hover {
@@ -753,4 +754,49 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+}
+
+
+
+/* spedycja styles
+    --------------------------------------------------------------*/
+
+.loginField{
+    position: relative;
+    width: 350px;
+    height: 170px;
+    color: #0094ff;
+    font-size: 14px;
+    left:50%;
+}
+
+.sectionHeader {
+    position: relative;
+    color: #0094ff;
+    font-size: 25px;
+    left: 30px;
+    margin:auto;
+}
+
+.orderLeft {
+    position: relative;
+    width:500px;
+    float: left;
+}
+
+.orderRight {    
+    position: relative;
+        float: left;
+
+}
+
+.addNewOrderButton {
+    width: 312px!important;
+	height: 30px;
+    border: 1px solid #0094ff!important;
+    background-color: rgba(255, 255, 255, .5)!important;
+    background-clip: padding-box!important;
+	color: #0094ff;
+    padding: 5px;
+    margin-top:64px;
 }

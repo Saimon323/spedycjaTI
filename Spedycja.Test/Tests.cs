@@ -12,7 +12,7 @@ namespace Spedycja.Test
     {
         static void Main(string[] args)
         {
-            
+
             //CustomerRepository customerRepo = new CustomerRepository();
             //IQueryable<Customer> allCustomersList = customerRepo.GetAllCustomers();
             //foreach (var x in allCustomersList)
@@ -34,17 +34,27 @@ namespace Spedycja.Test
             //    var cord = xxx.Coordinates;
             //}
 
-            Tuple<double, double> result = Geocoding.GeocodingProvider.getLatLong("Berlin");
-            Tuple<double, double> result2 = Geocoding.GeocodingProvider.getLatLong("warszawa");
-            
-            //var country = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.Country]).First();
 
+            while (true)
+            {
+                Console.WriteLine("Podaj miasto, a zdekoduję Ci je");
+                Console.WriteLine();
+                string a = Console.ReadLine();
+
+                Tuple<double, double> result = Geocoding.GeocodingProvider.getLatLong(a);
+                //Tuple<double, double> result2 = Geocoding.GeocodingProvider.getLatLong("warszawa");
+
+                if (result != null)
+                    Console.WriteLine(result.Item1.ToString(), result.Item2.ToString());
+                else
+                    Console.WriteLine("nie znaleziono");
+                //var country = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.Country]).First();
+
+                Console.ReadKey();
+                Console.Clear();
+            }
 
             #endregion
-
-            Console.ReadKey();
         }
-
-
     }
 }
