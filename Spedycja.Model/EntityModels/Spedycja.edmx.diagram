@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="SpedycjaModel.Customer" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SpedycjaModel.Driver" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SpedycjaModel.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SpedycjaModel.StatusOrder" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SpedycjaModel.StatusOrder" Width="1.5" PointX="9.875" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SpedycjaModel.TypesFreight" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SpedycjaModel.TypesVehicle" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
         <AssociationConnector Association="SpedycjaModel.FK_Kierowcy_ObszarDzialan" ManuallyRouted="false" />
@@ -21,7 +21,7 @@
         <AssociationConnector Association="SpedycjaModel.FK_Comments_Orders" />
         <EntityTypeShape EntityType="SpedycjaModel.Worker" Width="1.5" PointX="5.375" PointY="6.875" />
         <AssociationConnector Association="SpedycjaModel.FK_Zlecenia_Pracownicy" />
-        <EntityTypeShape EntityType="SpedycjaModel.StatusHistory" Width="1.5" PointX="7.625" PointY="6.125" />
+        <EntityTypeShape EntityType="SpedycjaModel.StatusHistory" Width="1.5" PointX="9.5" PointY="6.125" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Orders" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_StatusOrders" />
         <AssociationConnector Association="SpedycjaModel.FK_StatusHistory_Workers" />

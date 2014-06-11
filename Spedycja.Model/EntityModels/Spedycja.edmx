@@ -137,7 +137,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Kierowcy_ObszarDzialan">
-          <End Role="AreaActivities" Type="Self.AreaActivities" Multiplicity="0..1" />
+          <End Role="AreaActivities" Type="Self.AreaActivities" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Drivers" Type="Self.Drivers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AreaActivities">
@@ -149,7 +151,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ladunki_Typ_Ladunek">
-          <End Role="TypesFreights" Type="Self.TypesFreights" Multiplicity="0..1" />
+          <End Role="TypesFreights" Type="Self.TypesFreights" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Loads" Type="Self.Loads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypesFreights">
@@ -161,7 +165,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Orders_Routes">
-          <End Role="Routes" Type="Self.Routes" Multiplicity="0..1" />
+          <End Role="Routes" Type="Self.Routes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Routes">
@@ -211,7 +217,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Zlecenia_Kierowcy">
-          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1" />
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Drivers">
@@ -235,7 +243,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Zlecenia_Ladunki">
-          <End Role="Loads" Type="Self.Loads" Multiplicity="0..1" />
+          <End Role="Loads" Type="Self.Loads" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Loads">
@@ -247,7 +257,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Zlecenia_Pracownicy">
-          <End Role="Workers" Type="Self.Workers" Multiplicity="0..1" />
+          <End Role="Workers" Type="Self.Workers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Workers">
@@ -271,7 +283,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Zlecenia_Typ_Pojazd">
-          <End Role="TypesVehicles" Type="Self.TypesVehicles" Multiplicity="0..1" />
+          <End Role="TypesVehicles" Type="Self.TypesVehicles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypesVehicles">

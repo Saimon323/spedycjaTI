@@ -12,8 +12,11 @@ namespace Spedycja.Model.Repositories
     {
         public void AddStatusHistory(StatusHistory statusHistory)
         {
-            Entities.StatusHistories.Add(statusHistory);
-            Entities.SaveChanges();
+            //statusHistory.StatusOrder = Entities.StatusOrders.Where(t => t.id == statusHistory.idStatus).FirstOrDefault();
+            //statusHistory.Order = Entities.Orders.Where(x => x.id == statusHistory.idOrder).FirstOrDefault();
+            //statusHistory.Worker = Entities.Workers.Where(y => y.id == statusHistory.idWorker).FirstOrDefault();
+            //Entities.StatusHistories.Add(statusHistory);
+            //Entities.SaveChanges();
         }
     }
 }
