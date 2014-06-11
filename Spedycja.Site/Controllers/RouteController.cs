@@ -18,32 +18,26 @@ namespace Spedycja.Site.Controllers
         public ActionResult ShowAllRoutes()
         {
             IRouteRepository routeRepository = new RouteRepository();
+            var aggregatedRoutes = routeRepository.GetAggregatedRoutes(50 * 1000); // w metrach
             var routes = routeRepository.getAllRoutes();
             List<POIModel> RoutesList = new List<POIModel>();
             POIModel routeToAdd;
             string place;
-            foreach(var route in routes)
-            {
-                routeToAdd = new POIModel("", route.StartPoint, route.StartLat.GetValueOrDefault(), route.StartLong.GetValueOrDefault());
-                RoutesList.Add(routeToAdd);
-                routeToAdd = new POIModel("", route.EndPoint, route.EndLat.GetValueOrDefault(), route.EndLong.GetValueOrDefault());
-                RoutesList.Add(routeToAdd);
+            //foreach(var route in routes)
+            //{
+            //    routeToAdd = new POIModel("", route.StartPoint, route.StartLat.GetValueOrDefault(), route.StartLong.GetValueOrDefault());
+            //    RoutesList.Add(routeToAdd);
+            //    routeToAdd = new POIModel("", route.EndPoint, route.EndLat.GetValueOrDefault(), route.EndLong.GetValueOrDefault());
+            //    RoutesList.Add(routeToAdd);
+            //}
 
-                //place = route.StartPoint.Replace(";", ",");
-                //routeToAdd = getPOI(place);
-                //RoutesList.Add(routeToAdd);
-                //place = route.EndPoint.Replace(";",",");
-                //routeToAdd = getPOI(place);
-                //RoutesList.Add(routeToAdd);
+            foreach (var route in aggregatedRoutes)
+            {
+                routeToAdd = new POIModel("", route.StartName, route.StartLat, route.StartLong);
+                RoutesList.Add(routeToAdd);
+                routeToAdd = new POIModel("", route.EndName, route.EndLat, route.EndLong);
+                RoutesList.Add(routeToAdd);
             }
-            /*var routes2 = routeRepository.getAllRoutes().Select(x => new POIModel
-            {
-                No = "",
-                Name = x.StartCountry,
-                Latitude = Spedycja.Geocoding.GeocodingProvider.getLatLong(x.StartCountry).Item1,
-                Longtitude = Spedycja.Geocoding.GeocodingProvider.getLatLong(x.StartCountry).Item2
-
-            }).ToList();*/
 
             return View(RoutesList);
         }

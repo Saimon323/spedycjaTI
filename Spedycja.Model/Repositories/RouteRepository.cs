@@ -101,8 +101,8 @@ namespace Spedycja.Model.Repositories
                     Rate = route.Count,
                     StartLat = route.First().StartPoint.Latitude,
                     StartLong = route.First().StartPoint.Longitude,
-                    EndLat = route.First().StartPoint.Latitude,
-                    EndLong = route.First().StartPoint.Longitude,
+                    EndLat = route.First().EndPoint.Latitude,
+                    EndLong = route.First().EndPoint.Longitude,
                     StartName = route.First().StartName,
                     EndName = route.First().EndName,
                     Text = route.First().Text
