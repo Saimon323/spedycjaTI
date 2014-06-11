@@ -11,8 +11,11 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/leaflet.css")" type="text/css" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/leaflet-0.6.4.js")
 </head>
 <body>
     <header>
@@ -38,7 +41,7 @@
                                 {
                                     <li>@Html.ActionLink("Nowe zlecenie", "NewOrder", "Order")</li>
                                     <li>@Html.ActionLink("Lista zleceń", "OrderList", "Order")</li>
-                                    <li>@Html.ActionLink("Trasy kierowców", "InProgress", "Spedycja")</li>
+                                    <li>@Html.ActionLink("Trasy kierowców", "ShowAllRoutes", "Route")</li>
                                 }
                             </text>
                         }

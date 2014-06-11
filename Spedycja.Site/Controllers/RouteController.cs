@@ -24,12 +24,17 @@ namespace Spedycja.Site.Controllers
             string place;
             foreach(var route in routes)
             {
-                place = route.StartPoint.Replace(";", ",");
-                routeToAdd = getPOI(place);
+                routeToAdd = new POIModel("", route.StartPoint, route.StartLat.GetValueOrDefault(), route.StartLong.GetValueOrDefault());
                 RoutesList.Add(routeToAdd);
-                place = route.EndPoint.Replace(";",",");
-                routeToAdd = getPOI(place);
+                routeToAdd = new POIModel("", route.EndPoint, route.EndLat.GetValueOrDefault(), route.EndLong.GetValueOrDefault());
                 RoutesList.Add(routeToAdd);
+
+                //place = route.StartPoint.Replace(";", ",");
+                //routeToAdd = getPOI(place);
+                //RoutesList.Add(routeToAdd);
+                //place = route.EndPoint.Replace(";",",");
+                //routeToAdd = getPOI(place);
+                //RoutesList.Add(routeToAdd);
             }
             /*var routes2 = routeRepository.getAllRoutes().Select(x => new POIModel
             {
