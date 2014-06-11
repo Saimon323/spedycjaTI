@@ -58,7 +58,7 @@ namespace Spedycja.Model.Repositories
         /// </summary>
         /// <param name="distance">In Meters</param>
         /// <returns></returns>
-        public List<RouteStatModel> GetRoutes(double distance)
+        public List<RouteStatModel> GetAggregatedRoutes(double distance)
         {
             var allPointToPoints = new List<PointToPoint>();
 
