@@ -27,94 +27,101 @@ namespace Spedycja.Site.Controllers
         [HttpPost]
         public ActionResult NewOrder(OrderModel model)
         {
-            #region Deklaracje repozytoriow
-            ICustomerRepository customerRepository = new CustomerRepository();
-            IRouteRepository routeRepository = new RouteRepository();
-            IStatusHistoryRepository statusHistoryRepository = new StatusHistoryRepository();
-            ILoadRepository loadRepository = new LoadRepository();
-            IWorkerRepository workerRepository = new WorkerRepository();
-            ITypesVehicleRepository typeVehicleRepository = new TypesVehicleRepository();
-            ITypesFreightRepository typeFreightRepository = new TypesFreightRepository();
-            IOrderRepository orderRepository = new OrderRepository();
-            #endregion
 
-            #region ID nowego rodzaju ladunku
-            int typeFreightId = typeFreightRepository.CreateNewTypeFreightByOrder(new TypesFreight
+            if (ModelState.IsValid)
             {
-                TypeName = model.load.LoadType
-            });
-            #endregion
+                #region Deklaracje repozytoriow
+                ICustomerRepository customerRepository = new CustomerRepository();
+                IRouteRepository routeRepository = new RouteRepository();
+                IStatusHistoryRepository statusHistoryRepository = new StatusHistoryRepository();
+                ILoadRepository loadRepository = new LoadRepository();
+                IWorkerRepository workerRepository = new WorkerRepository();
+                ITypesVehicleRepository typeVehicleRepository = new TypesVehicleRepository();
+                ITypesFreightRepository typeFreightRepository = new TypesFreightRepository();
+                IOrderRepository orderRepository = new OrderRepository();
+                #endregion
 
-            #region ID nowego towaru
-            int loadCreatedId = loadRepository.CreateLoadByOrder(new Load
-            {
-                Name = model.load.Name,
-                Price = model.load.Price,
-                Weight = model.load.Weight,
-                IdType = typeFreightId
-            });
-            #endregion
+                #region ID nowego rodzaju ladunku
+                int typeFreightId = typeFreightRepository.CreateNewTypeFreightByOrder(new TypesFreight
+                {
+                    TypeName = model.load.LoadType
+                });
+                #endregion
 
-            #region ID uzytkownika dodajacego zlecenie
-            var cookie = Request.Cookies["LogOn"];
-            int workerId = workerRepository.getWorkerIdByLogin(cookie.Value);
-            #endregion
+                #region ID nowego towaru
+                int loadCreatedId = loadRepository.CreateLoadByOrder(new Load
+                {
+                    Name = model.load.Name,
+                    Price = model.load.Price,
+                    Weight = model.load.Weight,
+                    IdType = typeFreightId
+                });
+                #endregion
 
-            #region ID statusu zlecenia
-            int statusOrder = 1;
-            #endregion
+                #region ID uzytkownika dodajacego zlecenie
+                var cookie = Request.Cookies["LogOn"];
+                int workerId = workerRepository.getWorkerIdByLogin(cookie.Value);
+                #endregion
 
-            #region ID nowego typu pojazdu
-            int typeVehicleCreatedId = typeVehicleRepository.CreateTypeVehicleByOrder(new TypesVehicle
-            {
-                TypeName = model.vehicle.Name
-            });
-            #endregion
+                #region ID statusu zlecenia
+                int statusOrder = 1;
+                #endregion
 
-            #region ID nowego zleceniodawcy
-            int customerCreatedId = customerRepository.CreateNewCustomerByOrder(new Customer
-            {
-                Name = model.customer.Name,
-                Surname = model.customer.Surname,
-                Address = model.customer.Address,
-                PhoneNumber = model.customer.PhoneNumber,
-                Firm = model.customer.Firm
-            });
-            #endregion
+                #region ID nowego typu pojazdu
+                int typeVehicleCreatedId = typeVehicleRepository.CreateTypeVehicleByOrder(new TypesVehicle
+                {
+                    TypeName = model.vehicle.Name
+                });
+                #endregion
 
-            #region ID nowej trasy
-            int routeCreatedId = routeRepository.CreateNewRouteByOrder(new Route
-            {
-                StartPoint = model.route.StartPoint,
-                EndPoint = model.route.EndPoint
-            });
-            #endregion
+                #region ID nowego zleceniodawcy
+                int customerCreatedId = customerRepository.CreateNewCustomerByOrder(new Customer
+                {
+                    Name = model.customer.Name,
+                    Surname = model.customer.Surname,
+                    Address = model.customer.Address,
+                    PhoneNumber = model.customer.PhoneNumber,
+                    Firm = model.customer.Firm
+                });
+                #endregion
 
-            DateTime createdAt = DateTime.Now;
+                #region ID nowej trasy
+                int routeCreatedId = routeRepository.CreateNewRouteByOrder(new Route
+                {
+                    StartPoint = model.route.StartPoint,
+                    EndPoint = model.route.EndPoint
+                });
+                #endregion
 
-            #region Nowe zlecenie
-            Order order = new Order
-            {
-                idLoad = loadCreatedId,
-                idWorker = workerId,
-                idStatus = statusOrder,
-                idTypeVehicles = typeVehicleCreatedId,
-                idCustomer = customerCreatedId,
-                idRoutes = routeCreatedId,
-                CreatedAt = createdAt
-            };
+                DateTime createdAt = DateTime.Now;
 
-            int orderCreatedId = orderRepository.CreateNewOrder(order);
-            statusHistoryRepository.AddStatusHistory(new StatusHistory
-            {
-                idStatus = 1,
-                idWorker = workerId,
-                ChangeDate = DateTime.Now,
-                idOrder = orderCreatedId
-            });
-            #endregion
+                #region Nowe zlecenie
+                Order order = new Order
+                {
+                    idLoad = loadCreatedId,
+                    idWorker = workerId,
+                    idStatus = statusOrder,
+                    idTypeVehicles = typeVehicleCreatedId,
+                    idCustomer = customerCreatedId,
+                    idRoutes = routeCreatedId,
+                    CreatedAt = createdAt
+                };
 
-            return RedirectToAction("OrderList", "Order");
+                int orderCreatedId = orderRepository.CreateNewOrder(order);
+                statusHistoryRepository.AddStatusHistory(new StatusHistory
+                {
+                    idStatus = 1,
+                    idWorker = workerId,
+                    ChangeDate = DateTime.Now,
+                    idOrder = orderCreatedId                   
+                    
+                });
+                #endregion
+
+
+                return RedirectToAction("OrderList", "Order");
+            }
+            return View(model);
         }
 
         //[HttpPost]

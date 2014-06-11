@@ -29,16 +29,16 @@ namespace Spedycja.Model.Repositories
             if (route.StartPoint != null)
             {
                 Tuple<double, double> from = Geocoding.GeocodingProvider.getLatLong(route.StartPoint);
-                route.StartLat = from.Item1;
-                route.StartLong = from.Item2;
+                route.StartLat = from != null ? from.Item1 : 0 ;
+                route.StartLong = from != null ? from.Item2 : 0;
             }
 
             if (route.EndPoint != null)
             {
 
                 Tuple<double, double> to = Geocoding.GeocodingProvider.getLatLong(route.EndPoint);
-                route.EndLat = to.Item1;
-                route.EndLong = to.Item2;
+                route.EndLat = to != null ? to.Item1 : 0;
+                route.EndLong = to != null ? to.Item2 : 0;
             }
 
             Entities.Routes.Add(route);
