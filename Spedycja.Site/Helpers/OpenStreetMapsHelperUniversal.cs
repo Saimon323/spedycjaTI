@@ -479,6 +479,7 @@ namespace Spedycja.Site.Helpers
 
 //        #endregion
 //    }
+//}
 
 
 
@@ -716,11 +717,6 @@ namespace Spedycja.Site.Helpers
                                     return new L.Icon(options);
                                 };
 
-var polygon = L.polygon([
-    [32.509, -0.08],
-    [41.503, -20.12]
-]).addTo(map);
-
 
 
 ";
@@ -774,59 +770,12 @@ var polygon = L.polygon([
                         returnString += "var marker" + poiNo + " = L.marker([" + lat + ", " + lng +
                                         "], {draggable: true, icon:" + markerIcon + @"}).addTo(map);";
                         returnString += "marker" + poiNo + ".bindPopup('" + x.Name + "').openPopup();";
-                        //linia
-                        //returnString += "var polygon = L.polygon([" +
-                        //                    "[32.509, -0.08]," +
-                        //                    "[41.503, -20.12]" +
-                        //                "]).addTo(map);";
+
 
                         bounds += "[" + lat + ", " + lng + "],";
                     }
 
-                    #region linia
-                    string startLat = "0.0";
-                    string statyLong = "0.0";
-                    string endLat = "0.0";
-                    string endLong = "0.0";
-                    int counter = 0;
-                    foreach (POIModel x in poiList)
-                    {
-                        lat = (x.Latitude.ToString()).Replace(',', '.');
-                        lng = (x.Longtitude.ToString()).Replace(',', '.');
-                        poiNo = x.No;
-                        poiNo = poiNo.Replace("/", "");
 
-                        if (counter == 0)
-                        {
-                            startLat = lat;
-                            statyLong = lng;
-                        }
-
-                        if (counter == 1)
-                        {
-                            endLat = lat;
-                            endLong = lng;
-
-                            returnString += "var polygon = L.polygon([" +
-                                                "[" + startLat + ", " + statyLong + "]," +
-                                                "[" + endLat + ", " + endLong + "]" +
-                                            "]).addTo(map);";
-                        }
-                        counter++;
-                        if (counter == 2)
-                        {
-                            counter = 0;
-                        }
-                        //linia
-
-                        //returnString += "var polygon = L.polygon([" +
-                        //                    "[" + lat + ", " + lng + "]," +
-                        //                    "[41.503, -20.12]" +
-                        //                "]).addTo(map);";
-
-
-                    }
-                    #endregion
 
                     bounds = bounds.Remove(bounds.Length - 1);
 
