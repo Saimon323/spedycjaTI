@@ -13,10 +13,17 @@
 @Scripts.Render("~/jqwidgets/jqxlistbox.js")
 @Scripts.Render("~/jqwidgets/jqxdropdownlist.js")
 @Scripts.Render("~/jqwidgets/jqxgrid.js")
+@Scripts.Render("~/jqwidgets/jqxgrid.filter.js")
 @Scripts.Render("~/jqwidgets/jqxgrid.sort.js")
 @Scripts.Render("~/jqwidgets/jqxgrid.pager.js")
 @Scripts.Render("~/jqwidgets/jqxgrid.selection.js")
 @Scripts.Render("~/jqwidgets/jqxgrid.edit.js")
+@Scripts.Render("~/jqwidgets/jqxpanel.js")
+@Scripts.Render("~/jqwidgets/globalization/globalize.js")
+@Scripts.Render("~/jqwidgets/jqxcalendar.js")
+@Scripts.Render("~/jqwidgets/jqxdatetimeinput.js")
+@Scripts.Render("~/jqwidgets/jqxcheckbox.js")
+
 
 
 
@@ -76,12 +83,15 @@
                 {
                     width: 1000,
                     source: dataAdapter,
+                    filterable: true,
                     pageable: true,
                     autoheight: true,
                     sortable: true,
                     altrows: true,
                     enabletooltips: true,
+                    autoheight: true,
                     editable: true,
+                    autoshowfiltericon: true,
                     selectionmode: 'multiplecellsadvanced',
                     columns: [
                         { text: 'Szczegóły', datafield: 'id', width: 80, cellsrenderer: buttonRender },
@@ -91,6 +101,35 @@
                         { text: 'Do', datafield: 'To', minwidth: 120 },
                         { text: 'Zleceniodawca', datafield: 'Customer', width: 250 },
                     ]
+                });
+
+                $('#events').jqxPanel({ width: 300, height: 80 });
+
+                $("#jqxgrid").on("filter", function (event) {
+                    $("#events").jqxPanel('clearcontent');
+                    var filterinfo = $("#jqxgrid").jqxGrid('getfilterinformation');
+
+                    var eventData = "Triggered 'filter' event";
+                    for (i = 0; i < filterinfo.length; i++) {
+                        var eventData = "Filter Column: " + filterinfo[i].filtercolumntext;
+                        $('#events').jqxPanel('prepend', '<div style="margin-top: 5px;">' + eventData + '</div>');
+                    }
+                });
+
+                $('#clearfilteringbutton').jqxButton({ height: 25 });
+                $('#filterbackground').jqxCheckBox({ checked: true, height: 25 });
+                $('#filtericons').jqxCheckBox({ checked: false, height: 25 });
+        // clear the filtering.
+                $('#clearfilteringbutton').click(function () {
+                    $("#jqxgrid").jqxGrid('clearfilters');
+                });
+        // show/hide filter background
+                $('#filterbackground').on('change', function (event) {
+                    $("#jqxgrid").jqxGrid({ showfiltercolumnbackground: event.args.checked });
+                });
+        // show/hide filter icons
+                $('#filtericons').on('change', function (event) {
+                    $("#jqxgrid").jqxGrid({ autoshowfiltericon: !event.args.checked });
                 });
     }
 </script>
