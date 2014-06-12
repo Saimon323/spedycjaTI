@@ -186,6 +186,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HeatMapController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HeatMapHelper.cs" />
     <Compile Include="Helpers\OpenStreetMapsHelperUniversal.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -892,6 +894,7 @@
     <Content Include="Scripts\Layout2\modernizr.custom.js" />
     <Content Include="Scripts\leaflet-0.6.4.js" />
     <Content Include="Scripts\leaflet-0.6.4.min.js" />
+    <Content Include="Scripts\leaflet-heat.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -941,6 +944,7 @@
     <Content Include="Views\Order\OrderPhase2.cshtml" />
     <Content Include="Views\Route\ShowAllRoutes.cshtml" />
     <Content Include="Views\Order\OrderDetails.cshtml" />
+    <Content Include="Views\HeatMap\HeatMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

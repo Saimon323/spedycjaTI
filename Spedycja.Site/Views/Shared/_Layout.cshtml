@@ -16,6 +16,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Scripts/leaflet-0.6.4.js")
+    @Scripts.Render("~/Scripts/leaflet-heat.js")
 </head>
 <body>
     <header>
@@ -42,6 +43,7 @@
                                     <li>@Html.ActionLink("Nowe zlecenie", "NewOrder", "Order")</li>
                                     <li>@Html.ActionLink("Lista zleceń", "OrderList", "Order")</li>
                                     <li>@Html.ActionLink("Trasy kierowców", "ShowAllRoutes", "Route")</li>
+                                    <li>@Html.ActionLink("Heat Map", "HeatMap", "HeatMap")</li>
                                 }
                             </text>
                         }
