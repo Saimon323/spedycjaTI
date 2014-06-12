@@ -140,7 +140,54 @@ namespace Spedycja.Site.Controllers
             IOrderRepository orderRepository = new OrderRepository();
             var order = orderRepository.getOrder(orderId);
 
-            ViewBag.data = order;
+            CustomerModel customer = new CustomerModel()
+            {
+                Name = order.Customer.Name,
+                Surname = order.Customer.Surname,
+                Address = order.Customer.Address,
+                PhoneNumber = order.Customer.PhoneNumber,
+                Firm = order.Customer.Firm
+            };
+
+
+            DriverModel driver = new DriverModel()
+            {
+                Name = (order.Driver != null) ? order.Driver.Name : string.Empty,
+                Surname =  (order.Driver != null) ? order.Driver.Surname : string.Empty,
+                Address = (order.Driver != null) ? order.Driver.Address : string.Empty,
+                PhoneNumber = (order.Driver != null) ? order.Driver.PhoneNumber : string.Empty,
+                Firm = (order.Driver != null) ? order.Driver.Firm : string.Empty
+            };
+
+            RouteModel route = new RouteModel()
+            {
+                StartPoint = order.Route.StartPoint,
+                EndPoint = order.Route.EndPoint
+            };
+
+            LoadModel load = new LoadModel()
+            {
+                Name = order.Load.Name,
+                LoadType = order.Load.TypesFreight.TypeName,
+                Weight = order.Load.Weight ?? 0,
+                Price = order.Load.Price ?? 0
+            };
+            VehicleModel vehicle = new VehicleModel()
+            {
+                Name = order.TypesVehicle.TypeName
+            };
+
+
+            OrderEditModel orderModel = new OrderEditModel()
+            {
+                load = load,
+                vehicle = vehicle,
+                route = route,
+                customer = customer,
+                driver = driver
+            };
+
+            ViewBag.Data = orderModel;
 
             return View();
         }

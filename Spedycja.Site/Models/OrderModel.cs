@@ -98,4 +98,52 @@ namespace Spedycja.Site.Models
         public string Firm { get; set; }
     }
 
+
+    public class OrderEditModel
+    {
+        public LoadModel load { get; set; }
+        public VehicleModel vehicle { get; set; }
+        public RouteModel route { get; set; }
+        public CustomerModel customer { get; set; }
+        public DriverModel driver { get; set; }
+        [Display(Name = "Cena")]
+        [DataType(DataType.Currency)]
+        public double Price { get; set; }
+
+        //public string napis{get;set;}
+
+        public OrderEditModel()
+        {
+            load = new LoadModel();
+            vehicle = new VehicleModel();
+            route = new RouteModel();
+            customer = new CustomerModel();
+            driver = new DriverModel();
+        }
+    }
+
+    public class DriverModel
+    {
+        [Display(Name = "Imię")]
+        [DataType(DataType.Text)]
+        [Required]
+        public string Name { get; set; }
+
+        [Display(Name = "Nazwisko")]
+        [DataType(DataType.Text)]
+        [Required]
+        public string Surname { get; set; }
+
+        [Display(Name = "Adres")]
+        [DataType(DataType.Text)]
+        public string Address { get; set; }
+
+        [Display(Name = "Nr telefonu")]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Nazwa firmy")]
+        [DataType(DataType.Text)]
+        public string Firm { get; set; }
+    }
 }
