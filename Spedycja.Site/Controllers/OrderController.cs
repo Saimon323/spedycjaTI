@@ -192,6 +192,20 @@ namespace Spedycja.Site.Controllers
             return View();
         }
 
+        public ActionResult DeleteOrder(int orderId)
+        {
+            IOrderRepository orderRepository = new OrderRepository();
+
+            bool del = false;
+            del = orderRepository.deleteOrder(orderId);
+
+            if(del == true)
+                return RedirectToAction("OrderList", "Order");
+
+            else
+                return RedirectToAction("OrderList", "Order", new { orderId = orderId });
+        }
+
         public ActionResult OrderDetails(int id)
         {
             IOrderRepository orderRepository = new OrderRepository();
@@ -202,6 +216,16 @@ namespace Spedycja.Site.Controllers
             //    ViewBag.IsDriver = 0;
             //else if (order.Driver != null)
             //    ViewBag.IsDriver = 1;
+
+            List<POIModel> RoutesList = new List<POIModel>();
+            
+            POIModel route = new POIModel("", order.Route.StartPoint, order.Route.StartLat.GetValueOrDefault(), order.Route.StartLong.GetValueOrDefault());
+            RoutesList.Add(route);
+
+            POIModel route2 = new POIModel("", order.Route.EndPoint, order.Route.EndLat.GetValueOrDefault(), order.Route.EndLong.GetValueOrDefault());
+            RoutesList.Add(route2);
+
+            ViewBag.map = RoutesList;
 
             return View(order);
         }

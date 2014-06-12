@@ -32,6 +32,22 @@ namespace Spedycja.Model.Repositories
             return Entities.Orders.FirstOrDefault(order => order.id == id);
         }
 
+        public bool deleteOrder(int id)
+        {
+            try
+            {
+                Entities.Orders.Remove(getOrder(id));
+                Entities.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
         //public void AddNewOrder(OrderModel newOrder)
         //{
         //    Order order = new Order();
