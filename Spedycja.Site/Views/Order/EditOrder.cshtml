@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Edycja zlecenia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Spedycja.Model.EntityModels.Order
+
+
+@using (Html.BeginForm())
+{
+    <div id="formArea">
+        <div class="orderLeft">
+
+            @Html.ValidationSummary(true, "Dane zlecenia są niepoprawne")
+
+            <h3>Dane Ładunku</h3>           
+                      
+            @Html.LabelFor(l => l.Load.Name, "Nazwa ładunku")
+            @Html.TextBoxFor(l => l.Load.Name, new { @Value = @ViewBag.data.Load.Name})
+            @Html.ValidationMessageFor(l => l.Load.Name)
+
+          @*  @Html.LabelFor(l => l.Load.TypeName, "Rodzaj ładunku")
+            @Html.TextBoxFor(l => l.Load.TypeName)
+            @Html.ValidationMessageFor(l => l.Load.LoadType)
+
+            @Html.LabelFor(l => l.Load.Weight, "Waga (kg)")
+            @Html.TextBoxFor(l => l.Load.Weight)
+            @Html.ValidationMessageFor(l => l.Load.Weight)
+
+            @Html.LabelFor(l => l.Load, "Cena (PLN)")
+            @Html.TextBoxFor(l => l.Load.Price)
+            @Html.ValidationMessageFor(l => l.Load.Price)
+
+            @Html.LabelFor(l => l.Vehicle.Name, "Typ pojazdu")
+            @Html.TextBoxFor(l => l.Vehicle.Name)
+            @Html.ValidationMessageFor(l => l.Vehicle.Name)
+       
+            <h3>Trasa</h3>
+
+            @Html.LabelFor(l => l.route.StartPoint, "Z")
+            @Html.TextBoxFor(l => l.route.StartPoint)
+            @Html.ValidationMessageFor(l => l.route.StartPoint)
+
+            @Html.LabelFor(l => l.route.EndPoint, "Do")
+            @Html.TextBoxFor(l => l.route.EndPoint)
+            @Html.ValidationMessageFor(l => l.route.EndPoint)
+        </div>
+
+        <div class="orderRight">
+            <h3>Dane klienta</h3>
+
+            @Html.LabelFor(l => l.customer.Name, "Imię")
+            @Html.TextBoxFor(l => l.customer.Name)
+            @Html.ValidationMessageFor(l => l.customer.Name)
+
+            @Html.LabelFor(l => l.customer.Surname, "Nazwisko")
+            @Html.TextBoxFor(l => l.customer.Surname)
+            @Html.ValidationMessageFor(l => l.customer.Surname)
+
+            @Html.LabelFor(l => l.customer.Address, "Adres")
+            @Html.TextBoxFor(l => l.customer.Address)
+            @Html.ValidationMessageFor(l => l.customer.Address)
+
+            @Html.LabelFor(l => l.customer.PhoneNumber, "Numer telefonu")
+            @Html.TextBoxFor(l => l.customer.PhoneNumber)
+            @Html.ValidationMessageFor(l => l.customer.PhoneNumber)
+
+            @Html.LabelFor(l => l.customer.Firm, "Firma")
+            @Html.TextBoxFor(l => l.customer.Firm)
+            @Html.ValidationMessageFor(l => l.customer.Firm)
+        *@
+            <br />
+            <input type="submit" value="Zapisz zmiany" class="addNewOrderButton" />
+        </div>
+    </div>
+}

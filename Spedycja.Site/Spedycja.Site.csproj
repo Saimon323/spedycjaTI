@@ -945,6 +945,7 @@
     <Content Include="Views\Order\OrderDetails.cshtml" />
     <Content Include="Views\Order\NewOrderRetry.cshtml" />
     <Content Include="Views\HeatMap\HeatMap.cshtml" />
+    <Content Include="Views\Order\EditOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
