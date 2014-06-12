@@ -56,6 +56,7 @@ namespace Spedycja.Site.Models
     {
         [Display(Name = "Typ/Nazwa pojazdu")]
         [DataType(DataType.Text)]
+        [Required]
         public string Name { get; set; }
     }
 

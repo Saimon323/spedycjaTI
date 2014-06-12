@@ -780,7 +780,7 @@ tr.pager td {
 
 .orderLeft {
     position: relative;
-    width:500px;
+    width:490px;
     float: left;
 }
 
@@ -799,4 +799,9 @@ tr.pager td {
 	color: #0094ff;
     padding: 5px;
     margin-top:64px;
+}
+
+.field-validation-error {
+    margin-bottom: 15px;
+    display: block;
 }

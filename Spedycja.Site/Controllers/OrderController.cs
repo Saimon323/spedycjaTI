@@ -18,8 +18,7 @@ namespace Spedycja.Site.Controllers
         // GET: /Order/
 
         public ActionResult NewOrder()
-        {
-            
+        {            
             return View();
         }
 
@@ -27,7 +26,6 @@ namespace Spedycja.Site.Controllers
         [HttpPost]
         public ActionResult NewOrder(OrderModel model)
         {
-
             if (ModelState.IsValid)
             {
                 #region Deklaracje repozytoriow
@@ -121,20 +119,16 @@ namespace Spedycja.Site.Controllers
 
                 return RedirectToAction("OrderList", "Order");
             }
-            return View(model);
+
+            return NewOrderRetry(model);
         }
 
-        //[HttpPost]
-        //public ActionResult OrderPhase2(OrderModel model)
-        //{
-        //    return View();
-        //}
+        public ActionResult NewOrderRetry(OrderModel dataModel)
+        {
+            ViewBag.data = dataModel;
 
-        //[HttpPost]
-        //public ActionResult NewOrderSuccess(JoinedClientsModel model)
-        //{
-        //    return View("OrderList");
-        //}
+            return View();
+        }
 
         public ActionResult OrderList()
         {
