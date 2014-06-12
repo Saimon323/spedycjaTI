@@ -79,6 +79,12 @@ namespace Spedycja.Model.Repositories
             var Groups = new List<List<PointToPoint>>();
             foreach (var route in allPointToPoints)
             {
+                if(route.StartPoint.Latitude == 0 && route.StartPoint.Longitude ==0
+                  || route.EndPoint.Latitude == 0 && route.EndPoint.Longitude == 0)
+                {
+                    continue;
+                }
+
                 if (unGrouped.Contains(route))
                 {
                     var NewGroup = unGrouped.Where(t => t.StartPoint.GetDistanceTo(route.StartPoint) <= distance

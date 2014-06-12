@@ -11,10 +11,10 @@
 
             @Html.ValidationSummary(true, "Dane zlecenia są niepoprawne")
 
-            <h3>Dane Ładunku</h3>
+            <h3>Dane Ładunku</h3>           
                       
             @Html.LabelFor(l => l.load.Name, "Nazwa ładunku")
-            @Html.TextBoxFor(l => l.load.Name)
+            @Html.TextBoxFor(l => l.load.Name, new { @Value = @ViewBag.data.load.Name})
             @Html.ValidationMessageFor(l => l.load.Name)
 
             @Html.LabelFor(l => l.load.LoadType, "Rodzaj ładunku")
@@ -72,76 +72,3 @@
         </div>
     </div>
 }
-
-
-@*
-    //zrobilem komentarz bo to nie moje -> Szymon
-    @model Spedycja.Model.Models.OrderModel
-
-    @{
-        ViewBag.Title = "NewOrder";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
-
-
-    <h2>Nowe zamówienie</h2>
-
-    @using (Html.BeginForm("NewOrder", "Order", FormMethod.Post, null))
-    {
-        @Html.EditorForModel()
-        <input type="submit" value="Dodaj" />
-    }
-
-
-    <form action="/Order/OrderPhase2" method="POST">
-
-        <fieldset>
-
-            <h4>Dane Ładunku</h4>
-
-            <input type="hidden" id="oEmployee"/>
-
-            Nazwa ładunku<input type="text" id="oName" /><br />
-
-            Rodzaj ładunku<input type="text" id="oType" /><br/>
-
-            Waga <input type="number" id="Weight" />
-
-            Jednostka<select id="lWeightType" >
-
-                         <option selected="selected"  value=""></option>
-
-                         <option value="0">t</option>
-
-                         <option value="1">kg</option>
-
-                         <option value="2">g</option>
-
-                     </select><br/>
-
-            Objętość <input type="number" id="oVolume"/>
-
-            Jednostka <select id="lVolumeType">
-
-                          <option selected="selected" value=""></option>
-
-                          <option value="0">l</option>
-
-                          <option value="1">op</option>
-
-                      </select><br/>
-
-            Cena <input type="number" id="oPrice"/><br/>
-
-            Typ pojazdu <input type="text" id="lVehicleType" /><br />
-
-            Trasa od<input type="text" id="oStartPoint" /><br />
-
-            Trasa do<input type="text" id="oEndPoint" /><br />
-
-        </fieldset>
-
-        <p><input type="submit" value="Zapisz" /> </p>
-
-    </form>*@
