@@ -19,12 +19,7 @@ namespace Spedycja.Site.Models
         public VehicleModel vehicle { get; set; }
         public RouteModel route { get; set; }
         public CustomerModel customer { get; set; }
-        [Display(Name = "Cena")]
-        [DataType(DataType.Currency)]
-        public double Price { get; set; }
-
-        //public string napis{get;set;}
-
+ 
         public OrderModel()
         {
             load = new LoadModel();
@@ -106,12 +101,6 @@ namespace Spedycja.Site.Models
         public RouteModel route { get; set; }
         public CustomerModel customer { get; set; }
         public DriverModel driver { get; set; }
-        [Display(Name = "Cena")]
-        [DataType(DataType.Currency)]
-        public double Price { get; set; }
-
-        //public string napis{get;set;}
-
         public OrderEditModel()
         {
             load = new LoadModel();

@@ -192,6 +192,12 @@ namespace Spedycja.Site.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult EditOrder(OrderEditModel model)
+        {
+            return View();
+        }
+
         public ActionResult OrderDetails(int id)
         {
             IOrderRepository orderRepository = new OrderRepository();
