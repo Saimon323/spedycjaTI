@@ -1,18 +1,57 @@
 ﻿@model Spedycja.Model.EntityModels.Order
 
 @{
-    ViewBag.Title = "OrderList";
+    ViewBag.Title = "Szczegóły zlecenia";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<h2>@Model.Load.Name</h2>
 
-tutaj szymon miekus wyświetlasz dane ordera co ma id równo @Model.id
 <br/>
-np: <br/>
-Customer: @Model.Customer.Name <br/>
+Klient: @Model.Customer.Name  @Model.Customer.Surname<br/>
 Status: @Model.StatusOrder.Status <br/>
+Data utworzenia zlecenia: @Model.CreatedAt<br/>
+Pracownik prowadzący: @Model.Worker.Name @Model.Worker.Surname<br />
 <br/>
 
-Tak ogólnie to sobie myślę, że dobrze było by zrobić usuwanie/edycję z tego miejsce, a nie w tym gridzie <br/>
-ale to taka tylko propozycja
+<input type="button" value="Edytuj" onclick="@("location.href='"+ Url.Action("EditOrder", "Order", new{ orderId = Model.id})+ "'")" />
+
+<h3>Dane ładunku</h3>
+<ul>
+    <li>Rodzaj: @Model.Load.TypesFreight.TypeName</li>
+    <li>Waga: @Model.Load.Weight </li>
+    <li>Cena: @Model.Load.Price </li>
+    <li>Typ pojazdu: @Model.TypesVehicle.TypeName </li>
+</ul>
+
+<h3>Trasa</h3>
+Miejsce załadunku: @Model.Route.StartPoint <br/>
+Miejsce rozładunku: @Model.Route.EndPoint <br/>
+<br/>
+
+<h3>Dane klienta</h3>
+Imię: @Model.Customer.Name <br/>
+Nazwisko: @Model.Customer.Surname <br/>
+Nazwa firmy: @Model.Customer.Firm <br/>
+Adres: @Model.Customer.Address <br/>
+Telefon: @Model.Customer.PhoneNumber <br/>
+<br/>
+
+<h3>Dane kierowcy</h3>
+@*Imię: @Model.Driver.Name <br/>
+Nazwisko: @Model.Driver.Surname <br/>
+Nazwa firmy: @Model.Driver.Firm <br/>
+Adres: @Model.Driver.Address <br/>
+Telefon: @Model.Driver.PhoneNumber <br/>*@
+
+@*@{ if(@Model.Driver.Name != null)
+   {
+        Imię: @Model.Driver.Name <br/>
+        Nazwisko: @Model.Driver.Surname <br/>
+        Nazwa firmy: @Model.Driver.Firm <br/>
+        Adres: @Model.Driver.Address <br/>
+        Telefon: @Model.Driver.PhoneNumber <br/>
+   }       
+}*@
+
+<br/>

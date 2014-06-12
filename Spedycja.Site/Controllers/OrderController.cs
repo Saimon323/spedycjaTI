@@ -132,6 +132,15 @@ namespace Spedycja.Site.Controllers
 
         public ActionResult OrderList()
         {
+            return View();
+        }
+
+        public ActionResult EditOrder(int orderId)
+        {
+            IOrderRepository orderRepository = new OrderRepository();
+            var order = orderRepository.getOrder(orderId);
+
+            ViewBag.data = order;
 
             return View();
         }
@@ -141,6 +150,12 @@ namespace Spedycja.Site.Controllers
             IOrderRepository orderRepository = new OrderRepository();
 
             var order = orderRepository.getOrder(id);
+
+            //if (order.Driver == null)
+            //    ViewBag.IsDriver = 0;
+            //else if (order.Driver != null)
+            //    ViewBag.IsDriver = 1;
+
             return View(order);
         }
 
