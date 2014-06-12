@@ -55,7 +55,8 @@
                 { name: 'Status', type: 'string' },
                 { name: 'From', type: 'string' },
                 { name: 'To', type: 'string' },
-                { name: 'Customer', type: 'string' }
+                { name: 'Customer', type: 'string' },
+                { name: 'Date', type: 'date' }
             ],
             id: 'id',
             localdata: data
@@ -81,7 +82,7 @@
                 // initialize jqxGrid
                 $("#jqxgrid").jqxGrid(
                 {
-                    width: 1000,
+                    width: 1100,
                     source: dataAdapter,
                     filterable: true,
                     pageable: true,
@@ -100,6 +101,7 @@
                         { text: 'Z', datafield: 'From', width: 120 },
                         { text: 'Do', datafield: 'To', minwidth: 120 },
                         { text: 'Zleceniodawca', datafield: 'Customer', width: 250 },
+                        { text: 'Data', datafield: 'Date', width: 100, cellsformat: 'dd.MM.yyyy' },
                     ]
                 });
 

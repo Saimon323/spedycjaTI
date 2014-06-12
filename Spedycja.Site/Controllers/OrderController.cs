@@ -175,6 +175,7 @@ namespace Spedycja.Site.Controllers
             string from = "";
             string to = "";
             string customerInformation = "";
+            DateTime date;
             #endregion
 
             List<OrderListModel> ordersListResult = new List<OrderListModel>();
@@ -196,6 +197,7 @@ namespace Spedycja.Site.Controllers
                 if(order.idCustomer.HasValue)
                     customerInformation = customerRepository.getCustomerInformationById(order.idCustomer.GetValueOrDefault());
 
+                date = order.CreatedAt;
                 OrderListModel singleOrder = new OrderListModel
                 {
                     id = order.id,
@@ -203,7 +205,8 @@ namespace Spedycja.Site.Controllers
                     Status = status,
                     From = from,
                     To = to,
-                    Customer = customerInformation
+                    Customer = customerInformation,
+                    Date = date
                 };
 
                 ordersListResult.Add(singleOrder);
