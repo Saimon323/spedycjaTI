@@ -8,8 +8,8 @@ body {
     background-color: #fff;
     border-top: solid 10px #000;
     color: #333;
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-size: .85em!important;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif!important;
     margin: 0;
     padding: 0;
 }
@@ -815,4 +815,10 @@ tr.pager td {
 .field-validation-error {
     margin-bottom: 15px;
     display: block;
+}
+
+.orderDetailTitle {
+    color:#9b9b9b;
+    font-weight:bold;
+
 }

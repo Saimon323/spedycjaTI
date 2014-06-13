@@ -265,10 +265,10 @@ namespace Spedycja.Site.Controllers
 
             var order = orderRepository.getOrder(id);
 
-            //if (order.Driver == null)
-            //    ViewBag.IsDriver = 0;
-            //else if (order.Driver != null)
-            //    ViewBag.IsDriver = 1;
+            if (order.Driver == null)
+                ViewBag.IsDriver = 0;
+            else if (order.Driver != null)
+                ViewBag.IsDriver = 1;
 
             List<POIModel> RoutesList = new List<POIModel>();
             
