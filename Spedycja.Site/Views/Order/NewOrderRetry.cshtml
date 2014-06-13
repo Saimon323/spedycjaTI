@@ -1,7 +1,7 @@
 ﻿@model Spedycja.Site.Models.OrderModel
 
 @{
-    ViewBag.Title = "Stwórz zamówienie";
+    ViewBag.Title = "Stwórz nowe zlecenie";
 }
 
 @using (Html.BeginForm())
@@ -68,7 +68,7 @@
             @Html.ValidationMessageFor(l => l.customer.Firm)
         
             <br />
-            <input type="submit" value="Zapisz zlecenie" class="addNewOrderButton" />
+            <input type="submit" value="Dodaj zlecenie" class="addNewOrderButton" />
         </div>
     </div>
 }

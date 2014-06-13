@@ -1,5 +1,7 @@
 ﻿@model List<Spedycja.Site.Models.POIModel>
 @{
+    ViewBag.Title = "Mapa popularności miejsc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     int counter = 0;
 }
 
@@ -7,10 +9,6 @@
     #map {
         width: 800px;
         height: 600px;
-    }
-
-    body {
-        font: 16px/1.4 "Helvetica Neue", Arial, sans-serif;
     }
 
     .ghbtns {

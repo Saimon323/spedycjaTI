@@ -820,5 +820,17 @@ tr.pager td {
 .orderDetailTitle {
     color:#9b9b9b;
     font-weight:bold;
+}
 
+.orderDropDownList {
+    width: 312px!important;
+	height: 31px;
+    border: 1px solid #e2e2e2!important;
+    background-color: #fff;
+    background-clip: padding-box!important;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif!important;
+    font-size: .99em!important;
+    margin-top:5px;
+    margin-bottom:5px;
+    padding:5px;
 }

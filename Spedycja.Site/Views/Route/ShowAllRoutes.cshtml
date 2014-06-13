@@ -1,4 +1,9 @@
 ﻿@model List<Spedycja.Site.Models.POIModel>
+@{
+    ViewBag.Title = "Mapa kierunków zleceń";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 
 @Html.OpenStreetMapsCustomer().Name("Mapa1").PoiList(Model).ZoomLevel("15").MouseScrollZoom(true).MapEditableTrue(false).MapHeight("600").MarkerIcon("greenIcon")
 
