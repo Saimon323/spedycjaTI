@@ -12,6 +12,7 @@ namespace Spedycja.Model.Models
     public class EditOrderModel
     {
         public int id { get; set; }
+        public int idStatus { get; set; }
         public LoadEditModel load { get; set; }
         public VehicleEditModel vehicle { get; set; }
         public RouteEditModel route { get; set; }

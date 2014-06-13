@@ -212,6 +212,8 @@ namespace Spedycja.Site.Controllers
             EditOrderModel orderEdit = new EditOrderModel();
             
             orderEdit.id = model.id;
+            orderEdit.idStatus = model.idStatus;
+
             orderEdit.load.Name = model.load.Name;
             orderEdit.load.Price = model.load.Price;
             orderEdit.load.Weight = model.load.Weight;

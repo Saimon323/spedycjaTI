@@ -97,6 +97,7 @@ namespace Spedycja.Site.Models
     public class OrderEditModel
     {
         public int id { get; set; }
+        public int  idStatus { get; set; }
         public LoadModel load { get; set; }
         public VehicleModel vehicle { get; set; }
         public RouteModel route { get; set; }

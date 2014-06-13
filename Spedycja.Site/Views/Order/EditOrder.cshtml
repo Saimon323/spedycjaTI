@@ -97,7 +97,8 @@
 
             <h3> Status Zlecenia</h3>
 
-            @Html.DropDownList("stateList", ViewBag.StateList as IEnumerable<SelectListItem>)
+            @*@Html.DropDownList("stateList", ViewBag.StateList as IEnumerable<SelectListItem>)*@
+            @Html.DropDownListFor(l => l.idStatus, ViewBag.StateList as IEnumerable<SelectListItem>)
 
             <br />
 
