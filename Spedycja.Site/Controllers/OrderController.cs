@@ -188,7 +188,17 @@ namespace Spedycja.Site.Controllers
             };
 
             ViewBag.Data = orderModel;
-
+            var selectList = new List<SelectListItem>();
+            foreach (var state in new StatusOrderRepository().GetAllStatus().ToList())
+            {
+                selectList.Add(new SelectListItem
+                    {
+                        Text = state.Status,
+                        Value = state.id.ToString(),
+                        Selected = (state.id == order.idStatus)
+                    });
+            }
+            ViewBag.StateList = new SelectList(selectList, "Value", "Text");
             return View();
         }
 

@@ -94,6 +94,13 @@
             @Html.ValidationMessageFor(l => l.driver.Firm)
 
             <br />
+
+            <h3> Status Zlecenia</h3>
+
+            @Html.DropDownList("stateList", ViewBag.StateList as IEnumerable<SelectListItem>)
+
+            <br />
+
             <input type="submit" value="Zapisz zmiany" class="addNewOrderButton" />
         </div>
     </div>
