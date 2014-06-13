@@ -103,6 +103,7 @@
     <Compile Include="EntityModels\Worker.cs">
       <DependentUpon>Spedycja.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditOrderModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\RouteStatModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,35 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Security.Permissions;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.WebPages.Html;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Spedycja.Model.EntityModels;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
-namespace Spedycja.Site.Models
+
+namespace Spedycja.Model.Models
 {
-    public class OrderModel
+    public class EditOrderModel
     {
-        public LoadModel load {get;set;}
-        public VehicleModel vehicle { get; set; }
-        public RouteModel route { get; set; }
-        public CustomerModel customer { get; set; }
- 
-        public OrderModel()
+        public int id { get; set; }
+        public LoadEditModel load { get; set; }
+        public VehicleEditModel vehicle { get; set; }
+        public RouteEditModel route { get; set; }
+        public CustomerEditModel customer { get; set; }
+        public DriverEditModel driver { get; set; }
+        public EditOrderModel()
         {
-            load = new LoadModel();
-            vehicle = new VehicleModel();
-            route = new RouteModel();
-            customer = new CustomerModel();
+            load = new LoadEditModel();
+            vehicle = new VehicleEditModel();
+            route = new RouteEditModel();
+            customer = new CustomerEditModel();
+            driver = new DriverEditModel();
         }
     }
 
-    public class LoadModel
+    public class LoadEditModel
     {
         [Display(Name = "Nazwa ładunku")]
         [DataType(DataType.Text)]
@@ -47,7 +45,7 @@ namespace Spedycja.Site.Models
         public string LoadType { get; set; }
     }
 
-    public class VehicleModel
+    public class VehicleEditModel
     {
         [Display(Name = "Typ/Nazwa pojazdu")]
         [DataType(DataType.Text)]
@@ -55,7 +53,7 @@ namespace Spedycja.Site.Models
         public string Name { get; set; }
     }
 
-    public class RouteModel
+    public class RouteEditModel
     {
         [Display(Name = "Tasa z:")]
         [DataType(DataType.Text)]
@@ -68,7 +66,7 @@ namespace Spedycja.Site.Models
         public string EndPoint { get; set; }
     }
 
-    public class CustomerModel
+    public class CustomerEditModel
     {
         [Display(Name = "Imię")]
         [DataType(DataType.Text)]
@@ -93,26 +91,7 @@ namespace Spedycja.Site.Models
         public string Firm { get; set; }
     }
 
-
-    public class OrderEditModel
-    {
-        public int id { get; set; }
-        public LoadModel load { get; set; }
-        public VehicleModel vehicle { get; set; }
-        public RouteModel route { get; set; }
-        public CustomerModel customer { get; set; }
-        public DriverModel driver { get; set; }
-        public OrderEditModel()
-        {
-            load = new LoadModel();
-            vehicle = new VehicleModel();
-            route = new RouteModel();
-            customer = new CustomerModel();
-            driver = new DriverModel();
-        }
-    }
-
-    public class DriverModel
+    public class DriverEditModel
     {
         [Display(Name = "Imię")]
         [DataType(DataType.Text)]

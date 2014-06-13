@@ -94,6 +94,8 @@
             @Html.ValidationMessageFor(l => l.driver.Firm)
 
             <br />
+
+            @Html.TextBoxFor(l => l.id, new { @Value = @ViewBag.Data.id, style = "display: none;" })
             <input type="submit" value="Zapisz zmiany" class="addNewOrderButton" />
         </div>
     </div>

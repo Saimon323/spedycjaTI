@@ -48,6 +48,10 @@ namespace Spedycja.Model.Repositories
 
         }
 
+        public void updateOrder(EditOrderModel model)
+        {
+
+        }
         //public void AddNewOrder(OrderModel newOrder)
         //{
         //    Order order = new Order();

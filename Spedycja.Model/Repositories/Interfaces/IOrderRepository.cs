@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Spedycja.Model.EntityModels;
+using Spedycja.Model.Models;
 
 namespace Spedycja.Model.Repositories.Interfaces
 {
@@ -16,5 +17,7 @@ namespace Spedycja.Model.Repositories.Interfaces
         Order getOrder(int id);
 
         bool deleteOrder(int id);
+
+        void updateOrder(EditOrderModel model);
     }
 }

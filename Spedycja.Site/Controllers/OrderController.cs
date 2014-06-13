@@ -8,6 +8,7 @@ using Spedycja.Site.Models;
 using Spedycja.Model.EntityModels;
 using Spedycja.Model.Repositories.Interfaces;
 using Spedycja.Model.Repositories;
+using Spedycja.Model.Models;
 using Newtonsoft.Json;
 
 namespace Spedycja.Site.Controllers
@@ -180,6 +181,7 @@ namespace Spedycja.Site.Controllers
 
             OrderEditModel orderModel = new OrderEditModel()
             {
+                id = order.id,
                 load = load,
                 vehicle = vehicle,
                 route = route,
@@ -195,7 +197,40 @@ namespace Spedycja.Site.Controllers
         [HttpPost]
         public ActionResult EditOrder(OrderEditModel model)
         {
-            return View();
+            IOrderRepository orderRepository = new OrderRepository();
+            //Order order = orderRepository.getOrder(model.id);
+            EditOrderModel orderEdit = new EditOrderModel();
+            
+            orderEdit.id = model.id;
+            orderEdit.load.Name = model.load.Name;
+            orderEdit.load.Price = model.load.Price;
+            orderEdit.load.Weight = model.load.Weight;
+            orderEdit.load.LoadType = model.load.LoadType;
+
+            orderEdit.vehicle.Name = model.vehicle.Name;
+
+            orderEdit.route.StartPoint = model.route.StartPoint;
+            orderEdit.route.EndPoint = model.route.EndPoint;
+
+            orderEdit.customer.Name = model.customer.Name;
+            orderEdit.customer.Surname = model.customer.Surname;
+            orderEdit.customer.Address = model.customer.Address;
+            orderEdit.customer.PhoneNumber = model.customer.PhoneNumber;
+            orderEdit.customer.Firm = model.customer.Firm;
+
+            orderEdit.driver.Name = model.driver.Name;
+            orderEdit.driver.Surname = model.driver.Surname;
+            orderEdit.driver.Address = model.driver.Address;
+            orderEdit.driver.PhoneNumber = model.driver.PhoneNumber;
+            orderEdit.driver.Firm = model.driver.Firm;
+
+            orderRepository.updateOrder(orderEdit);
+            //{
+            //    id = model.id,
+            //    load = model.load
+            //};
+
+            return RedirectToAction("OrderList", "Order");
         }
 
         public ActionResult DeleteOrder(int orderId)
