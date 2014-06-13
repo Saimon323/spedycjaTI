@@ -237,10 +237,6 @@ namespace Spedycja.Site.Controllers
             orderEdit.driver.Firm = model.driver.Firm;
 
             orderRepository.updateOrder(orderEdit);
-            //{
-            //    id = model.id,
-            //    load = model.load
-            //};
 
             return RedirectToAction("OrderList", "Order");
         }

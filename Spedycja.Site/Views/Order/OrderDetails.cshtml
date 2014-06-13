@@ -48,11 +48,11 @@ Pracownik prowadzący: @Model.Worker.Name @Model.Worker.Surname<br />
          @if(Model.Driver != null)
            {
              @:<ul>
-                @:<li><span class="orderDetailTitle">Imię:</span> Model.Driver.Name 
-                @:<li><span class="orderDetailTitle"> Nazwisko:</span> Model.Driver.Surname
-                @:<li><span class="orderDetailTitle"> Nazwa firmy:</span> Model.Driver.Firm
-                @:<li><span class="orderDetailTitle"> Adres:</span> Model.Driver.Address
-                @:<li><span class="orderDetailTitle"> Telefon:</span> Model.Driver.PhoneNumber
+                @:<li><span class="orderDetailTitle">Imię:</span> @Model.Driver.Name 
+                @:<li><span class="orderDetailTitle"> Nazwisko:</span> @Model.Driver.Surname
+                @:<li><span class="orderDetailTitle"> Nazwa firmy:</span> @Model.Driver.Firm
+                @:<li><span class="orderDetailTitle"> Adres:</span> @Model.Driver.Address
+                @:<li><span class="orderDetailTitle"> Telefon:</span> @Model.Driver.PhoneNumber
              @:</ul>
            }   
         
