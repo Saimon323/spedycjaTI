@@ -20,5 +20,10 @@ namespace Spedycja.Model.Repositories
         {
             return Entities.StatusOrders.Where(x => x.id == id).FirstOrDefault().Status;
         }
+
+        public List<StatusOrder> GetAllStatus()
+        {
+            return Entities.StatusOrders.ToList();
+        }
     }
 }

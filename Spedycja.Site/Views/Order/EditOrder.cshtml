@@ -95,6 +95,13 @@
 
             <br />
 
+            <h3> Status Zlecenia</h3>
+
+            @Html.DropDownList("stateList", ViewBag.StateList as IEnumerable<SelectListItem>)
+
+            <br />
+
+
             @Html.TextBoxFor(l => l.id, new { @Value = @ViewBag.Data.id, style = "display: none;" })
             <input type="submit" value="Zapisz zmiany" class="addNewOrderButton" />
         </div>
