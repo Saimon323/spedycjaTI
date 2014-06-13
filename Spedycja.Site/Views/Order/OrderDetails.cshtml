@@ -14,44 +14,62 @@ Data utworzenia zlecenia: @Model.CreatedAt<br/>
 Pracownik prowadzący: @Model.Worker.Name @Model.Worker.Surname<br />
 <br/>
 
-<input type="button" value="Edytuj" onclick="@("location.href='"+ Url.Action("EditOrder", "Order", new{ orderId = Model.id})+ "'")" />
+<input type="button" value="Edytuj dane" class="addNewOrderButton" style="width:200px!important; margin-top:15px" onclick="@("location.href='"+ Url.Action("EditOrder", "Order", new{ orderId = Model.id})+ "'")" />
+<input type="button" value="Usuń zlecenie" class="deleteOrderButton" onclick="@("location.href='"+ Url.Action("DeleteOrder", "Order", new{ orderId = Model.id})+ "'")" />
 
-<h3>Dane ładunku</h3>
-<ul>
-    <li>Rodzaj: @Model.Load.TypesFreight.TypeName</li>
-    <li>Waga: @Model.Load.Weight </li>
-    <li>Cena: @Model.Load.Price </li>
-    <li>Typ pojazdu: @Model.TypesVehicle.TypeName </li>
-</ul>
+<div id="details">
+    <div class="orderLeft">
 
-<h3>Trasa</h3>
-Miejsce załadunku: @Model.Route.StartPoint <br/>
-Miejsce rozładunku: @Model.Route.EndPoint <br/>
-<br/>
+        <h3>Dane ładunku</h3>
+        <ul>
+            <li>Rodzaj: @Model.Load.TypesFreight.TypeName</li>
+            <li>Waga: @Model.Load.Weight </li>
+            <li>Cena: @Model.Load.Price </li>
+            <li>Typ pojazdu: @Model.TypesVehicle.TypeName </li>
+        </ul>
 
-<h3>Dane klienta</h3>
-Imię: @Model.Customer.Name <br/>
-Nazwisko: @Model.Customer.Surname <br/>
-Nazwa firmy: @Model.Customer.Firm <br/>
-Adres: @Model.Customer.Address <br/>
-Telefon: @Model.Customer.PhoneNumber <br/>
-<br/>
+        <h3>Trasa</h3>
+        <ul>
+            <li>Miejsce załadunku: @Model.Route.StartPoint <br/>
+            <li>Miejsce rozładunku: @Model.Route.EndPoint <br/>
+        </ul>
+        <br/>
 
-<h3>Dane kierowcy</h3>
-@*Imię: @Model.Driver.Name <br/>
-Nazwisko: @Model.Driver.Surname <br/>
-Nazwa firmy: @Model.Driver.Firm <br/>
-Adres: @Model.Driver.Address <br/>
-Telefon: @Model.Driver.PhoneNumber <br/>*@
+        <h3>Dane klienta</h3>
+        <ul>
+            <li>Imię: @Model.Customer.Name <br/>
+            <li>Nazwisko: @Model.Customer.Surname <br/>
+            <li>Nazwa firmy: @Model.Customer.Firm <br/>
+            <li>Adres: @Model.Customer.Address <br/>
+            <li>Telefon: @Model.Customer.PhoneNumber <br/>
+        </ul>
+        <br/>
 
-@*@{ if(@Model.Driver.Name != null)
-   {
-        Imię: @Model.Driver.Name <br/>
+        <h3>Dane kierowcy</h3>
+        @*Imię: @Model.Driver.Name <br/>
         Nazwisko: @Model.Driver.Surname <br/>
         Nazwa firmy: @Model.Driver.Firm <br/>
         Adres: @Model.Driver.Address <br/>
-        Telefon: @Model.Driver.PhoneNumber <br/>
-   }       
-}*@
+        Telefon: @Model.Driver.PhoneNumber <br/>*@
 
-<br/>
+        @*@{ if(@Model.Driver.Name != null)
+           {
+                Imię: @Model.Driver.Name <br/>
+                Nazwisko: @Model.Driver.Surname <br/>
+                Nazwa firmy: @Model.Driver.Firm <br/>
+                Adres: @Model.Driver.Address <br/>
+                Telefon: @Model.Driver.PhoneNumber <br/>
+           }       
+        }*@
+
+        <br/>
+
+    </div>
+
+    <div class="orderRight">
+    
+        @Html.OpenStreetMapsCustomer().Name("Mapa1").PoiList(ViewBag.Map).ZoomLevel("15").MouseScrollZoom(true).MapEditableTrue(false).MapHeight("400").MarkerIcon("greenIcon").MapWidth("450")
+
+    </div>
+
+</div>
