@@ -35,15 +35,30 @@
             @Html.TextBoxFor(l => l.vehicle.Name, new { @Value = @ViewBag.Data.vehicle.Name })
             @Html.ValidationMessageFor(l => l.vehicle.Name)
 
-            <h3>Trasa</h3>
+            <br />
+            <h3>Dane kierowcy</h3>
 
-            @Html.LabelFor(l => l.route.StartPoint, "Z")
-            @Html.TextBoxFor(l => l.route.StartPoint, new { @Value = @ViewBag.Data.route.StartPoint })
-            @Html.ValidationMessageFor(l => l.route.StartPoint)
+            @Html.LabelFor(l => l.driver.Name, "Imię")
+            @Html.TextBoxFor(l => l.driver.Name, new { @Value = @ViewBag.Data.driver.Name })
+            @Html.ValidationMessageFor(l => l.driver.Name)
 
-            @Html.LabelFor(l => l.route.EndPoint, "Do")
-            @Html.TextBoxFor(l => l.route.EndPoint, new { @Value = @ViewBag.Data.route.EndPoint })
-            @Html.ValidationMessageFor(l => l.route.EndPoint)
+            @Html.LabelFor(l => l.driver.Surname, "Nazwisko")
+            @Html.TextBoxFor(l => l.driver.Surname, new { @Value = @ViewBag.Data.driver.Surname })
+            @Html.ValidationMessageFor(l => l.driver.Surname)
+
+            @Html.LabelFor(l => l.driver.Address, "Adres")
+            @Html.TextBoxFor(l => l.driver.Address, new { @Value = @ViewBag.Data.driver.Address })
+            @Html.ValidationMessageFor(l => l.driver.Address)
+
+            @Html.LabelFor(l => l.driver.PhoneNumber, "Numer telefonu")
+            @Html.TextBoxFor(l => l.driver.PhoneNumber, new { @Value = @ViewBag.Data.driver.PhoneNumber })
+            @Html.ValidationMessageFor(l => l.driver.PhoneNumber)
+
+            @Html.LabelFor(l => l.driver.Firm, "Firma")
+            @Html.TextBoxFor(l => l.driver.Firm, new { @Value = @ViewBag.Data.driver.Firm })
+            @Html.ValidationMessageFor(l => l.driver.Firm)
+
+            <br />
         </div>
 
         <div class="orderRight">
@@ -71,34 +86,20 @@
 
             <br />
 
-            <h3>Dane kierowcy</h3>
+            <h3>Trasa</h3>
 
-            @Html.LabelFor(l => l.driver.Name, "Imię")
-            @Html.TextBoxFor(l => l.driver.Name, new { @Value = @ViewBag.Data.driver.Name })
-            @Html.ValidationMessageFor(l => l.driver.Name)
+            @Html.LabelFor(l => l.route.StartPoint, "Z")
+            @Html.TextBoxFor(l => l.route.StartPoint, new { @Value = @ViewBag.Data.route.StartPoint })
+            @Html.ValidationMessageFor(l => l.route.StartPoint)
 
-            @Html.LabelFor(l => l.driver.Surname, "Nazwisko")
-            @Html.TextBoxFor(l => l.driver.Surname, new { @Value = @ViewBag.Data.driver.Surname })
-            @Html.ValidationMessageFor(l => l.driver.Surname)
-
-            @Html.LabelFor(l => l.driver.Address, "Adres")
-            @Html.TextBoxFor(l => l.driver.Address, new { @Value = @ViewBag.Data.driver.Address })
-            @Html.ValidationMessageFor(l => l.driver.Address)
-
-            @Html.LabelFor(l => l.driver.PhoneNumber, "Numer telefonu")
-            @Html.TextBoxFor(l => l.driver.PhoneNumber, new { @Value = @ViewBag.Data.driver.PhoneNumber })
-            @Html.ValidationMessageFor(l => l.driver.PhoneNumber)
-
-            @Html.LabelFor(l => l.driver.Firm, "Firma")
-            @Html.TextBoxFor(l => l.driver.Firm, new { @Value = @ViewBag.Data.driver.Firm })
-            @Html.ValidationMessageFor(l => l.driver.Firm)
-
-            <br />
+            @Html.LabelFor(l => l.route.EndPoint, "Do")
+            @Html.TextBoxFor(l => l.route.EndPoint, new { @Value = @ViewBag.Data.route.EndPoint })
+            @Html.ValidationMessageFor(l => l.route.EndPoint)
 
             <h3> Status Zlecenia</h3>
 
             @*@Html.DropDownList("stateList", ViewBag.StateList as IEnumerable<SelectListItem>)*@
-            @Html.DropDownListFor(l => l.idStatus, ViewBag.StateList as IEnumerable<SelectListItem>)
+            @Html.DropDownListFor(l => l.idStatus, ViewBag.StateList as IEnumerable<SelectListItem>,new { @class = "orderDropDownList" })
 
             <br />
 
