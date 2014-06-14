@@ -197,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HeatMapHelper.cs" />
+    <Compile Include="Helpers\OpenStreetMapsHelperDrivers.cs" />
     <Compile Include="Helpers\OpenStreetMapsHelperUniversal.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LoginModel.cs" />

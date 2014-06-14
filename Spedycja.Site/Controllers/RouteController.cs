@@ -20,8 +20,8 @@ namespace Spedycja.Site.Controllers
             IRouteRepository routeRepository = new RouteRepository();
             var aggregatedRoutes = routeRepository.GetAggregatedRoutes(50 * 1000); // w metrach
             var routes = routeRepository.getAllRoutes();
-            List<POIModel> RoutesList = new List<POIModel>();
-            POIModel routeToAdd;
+            List<POIModelExtended> RoutesList = new List<POIModelExtended>();
+            POIModelExtended routeToAdd;
             string place;
             //foreach(var route in routes)
             //{
@@ -33,9 +33,9 @@ namespace Spedycja.Site.Controllers
 
             foreach (var route in aggregatedRoutes)
             {
-                routeToAdd = new POIModel("", route.StartName, route.StartLat, route.StartLong);
+                routeToAdd = new POIModelExtended("", route.StartName, route.StartLat, route.StartLong,route.Rate);
                 RoutesList.Add(routeToAdd);
-                routeToAdd = new POIModel("", route.EndName, route.EndLat, route.EndLong);
+                routeToAdd = new POIModelExtended("", route.EndName, route.EndLat, route.EndLong,route.Rate);
                 RoutesList.Add(routeToAdd);
             }
 

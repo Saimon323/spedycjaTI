@@ -28,4 +28,18 @@ namespace Spedycja.Site.Models
             this.Longtitude = Longtitude;
         }
     }
+
+    public class POIModelExtended : POIModel
+    {
+        public int Width { get; set; }
+
+        public POIModelExtended(string No, string Name, double Latitude, double Longtitude, int Width)
+        {
+            this.No = No;
+            this.Name = Name;
+            this.Latitude = Latitude;
+            this.Longtitude = Longtitude;
+            this.Width = Width;
+        }
+    }
 }
