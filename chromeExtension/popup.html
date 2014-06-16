@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<head>
+		<title>Getting Started Extension's Popup</title>
+		<style>
+			.title{
+				color: #015DB0;
+			} 
+
+			input, select{
+				width: 200px;
+			}
+
+		</style>
+
+		<script src="popup.js"></script>
+	</head>
+  <body>
+
+	<p class="title">Szukaj wolnych ladunkow</p>
+	<form enctype="multipart/form-data" action="http://www.transportuj.com.pl/index.php?page=ladunek&go=wyszukiwarka" target="_blank" method="post" name="globe">
+		Rodzaj ladunku: <select name="obszar">
+							<option>bez znaczenia</option>
+							<option>międzynarodowy</option>
+							<option>krajowy</option>
+						</select><br>
+		Obszar zlecnia: <select name="rodzaj_ladunku">
+							<option value="">wszystkie</option>
+							<option value="materialy ">materiały wszystkie</option>
+							<option value="materialy sypkie">materiały sypkie</option>
+							<option value="materialy budowlane">materiały budowlane</option>
+							<option value="materialy płynne">materiały płynne</option>
+							<option value="materialy gazowe">materiały gazowe</option>
+							<option value="materialy biologiczne">materiały biologiczne</option>
+							<option value="materialy niebezpieczne">materiały niebezpieczne</option>
+							<option value="towary ">towary wszystkie</option>
+							<option value="towary hutnictwa metali">towary hutnictwa metali</option>
+							<option value="towary elektromaszynowe">towary elektromaszynowe</option>
+							<option value="towary chemiczne">towary chemiczne</option>
+							<option value="towary włókiennicze/odzieżowe">towary włókiennicze/odzieżowe</option>
+							<option value="towary drzewne/papiernicze">towary drzewne/papiernicze</option>
+							<option value="towary spożywcze">towary spożywcze</option>
+							<option value="towary niebezpieczne">towary niebezpieczne</option>
+							<option value="towary ponadgabarytowe">towary ponadgabarytowe</option>
+							<option value="towary inne">towary inne</option>
+							</select>
+		Miejsce zaladunku: <input type="text" name="miejsce_zal">
+		<input type="submit" />
+	</form>
+
+  </body>
+</html>
