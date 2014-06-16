@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener(
         $("#route_StartPoint").val(request.data.From);
         $("#route_EndPoint").val(request.data.End);
         $("#customer_Name").val(request.data.ClientName);
+        $("#customer_Surname").val(request.data.ClientLastName);
         $("#customer_Address").val(request.data.End);
         $("#customer_PhoneNumber").val(request.data.ClientPhone);
         $("#customer_Firm").val(request.data.ClientCompany);
